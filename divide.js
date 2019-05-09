@@ -40,4 +40,4 @@ var divide = function(dividend, divisor) {
     return result;
 };
 
-console.log(divide(10, -3));
+console.log(divide(12, -3));
