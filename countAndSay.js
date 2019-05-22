@@ -12,7 +12,7 @@
 6.     312211
 */
 var countAndSay = function(n) {
-    let i, cache = [0, 1]
+    let i, cache = [0, "1"]
 
     for (i = 2; i <= n; i++) {
       let len = 1;
@@ -26,7 +26,7 @@ var countAndSay = function(n) {
           len = 1
         }
       }
-      cache[i] = parseInt(num);
+      cache[i] = num;
     }
 
     return cache[n];
