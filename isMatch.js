@@ -28,7 +28,7 @@
 
 // 动态规划
 var isMatch = function(s, p) {
-    let sLen = s.length, pLen = p.length, dp = [];
+    let sLen = s.length, pLen = p.length, dp = [], i, j;
 
     for (i = 0; i <= sLen; i++) {
         dp[i] = [];
