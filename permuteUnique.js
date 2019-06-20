@@ -3,31 +3,31 @@
  * @return {number[][]}
  */
 var permuteUnique = function(nums) {
-    let len = nums.length, res = [], first = 0, visited = [];
+    let len = nums.length, res = [], first = 0;
     nums.sort((a, b) => a - b);
 
     // first表示已访问过的元素
-    function backtrack(first, visited) {
+    function backtrack(first) {
         if (first === len) {
             res.push(nums.slice(0));
             return;
         }
         // i表示当前已被访问过的元素
         // 深度优先搜索
-        for (let i = 0; i < len; i++) {
-            if (visited[i] || (i > 0 && nums[i] === nums[i - 1] && !visited[i - 1])) {
+        let visited = []
+        for (let i = first; i < len; i++) {
+            if (visited[nums[i]]) {
                 continue
             }
-            visited[i] = true;
             [nums[first], nums[i]] = [nums[i], nums[first]];
-            backtrack(first + 1, visited);
+            backtrack(first + 1);
             [nums[first], nums[i]] = [nums[i], nums[first]];
-            visited[i] = false;
+            visited[nums[i]] = true;
         }
     }
 
 
-    backtrack(0, visited);
+    backtrack(0);
 
     return res;
 };
@@ -69,4 +69,4 @@ var permuteUnique = function(nums) {
 // 4: (3) [2, 1, 1]
 // 5: (3) [2, 1, 1]
 
-console.log(permuteUnique([2, 1, 1]))
+console.log(permuteUnique([1, 2, 1]))
