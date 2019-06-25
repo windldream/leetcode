@@ -12,6 +12,7 @@ var myPow = function(x, n) {
         n = Math.abs(n);
     }
     let res = 1;
+    // 将res和x独立开来
     do {
         if (n % 2) {
             res *= x;
