@@ -3,13 +3,27 @@
  * @return {number}
  */
 var maxProfit = function (prices) {
+  if (prices.length < 2) {
+    return 0;
+  }
   let len = prices.length,
-    maxProfit = 0;
+    i = 0,
+    maxProfit = 0,
+    peak = prices[0],
+    valley = prices[0];
 
-  for (let i = 1; i < len; i++) {
-    if (prices[i] > prices[i - 1]) {
-      maxProfit += prices[i] - prices[i - 1];
+  while (i < len - 1) {
+    while (i < len - 1 && prices[i] >= prices[i + 1]) {
+      i++;
     }
+    valley = prices[i];
+
+    while (i < len - 1 && prices[i] <= prices[i + 1]) {
+      i++;
+    }
+    peak = prices[i];
+
+    maxProfit += peak - valley;
   }
 
   return maxProfit;
