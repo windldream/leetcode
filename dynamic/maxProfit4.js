@@ -36,7 +36,6 @@ var maxProfit = function (k, prices) {
       dp[i][j][1] = Math.max(dp[i - 1][j][1], dp[i - 1][j - 1][0] - prices[i]);
     }
   }
-  console.log(maxProfitInfinity([1, 2, 3, 4, 5]))
   return dp[len - 1][k][0];
 
   function maxProfitInfinity(prices) {
