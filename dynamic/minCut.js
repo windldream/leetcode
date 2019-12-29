@@ -3,6 +3,7 @@
  * @return {number}
  */
 // 假设d[i][j]表示s中从i到j是否为回文
+// TODO 可优化
 var minCut = function (s) {
   let len = s.length,
     dp = [];
