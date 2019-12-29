@@ -5,6 +5,7 @@
 var minimumTotal = function(triangle) {
   let row = triangle.length, dp = [];
   
+  // TODO 空间复杂度
   for (let i = 0; i < row; i++) {
     dp[i] = [];
     for (let j = 0; j < triangle[i].length; j++) {
