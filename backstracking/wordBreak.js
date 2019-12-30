@@ -3,22 +3,24 @@
  * @param {string[]} wordDict
  * @return {string[]}
  */
-var wordBreak = function(s, wordDict) {
-  let len = s.length, dp = [], res = [];
+var wordBreak = function (s, wordDict) {
+  let len = s.length,
+    dp = [];
 
-  dp[0] = true;
+  dp[0] = [''];
   for (let i = 1; i <= len; i++) {
-    let str = '';
-    for (let j = 0; j <= i; j++) {;
-      if (dp[j] && wordDict.includes(s.substring(j, i))) {
-        str = str.trim() ?  ' ' : '' + s.substring(j, i)
-        dp[i] = true;
+    let list = [];
+    for (let j = 0; j < i; j++) {
+      if (dp[j].length && wordDict.includes(s.substring(j, i))) {
+        dp[j].forEach(item => {
+          list.push(item + (item ? ' ' : '') + s.substring(j, i));
+        });
       }
     }
-    str.trim() && res.push(str);
+    dp[i] = list;
   }
 
-  return res;
+  return dp[len];
 };
 
-console.log(wordBreak('catsanddog', ["cat", "cats", "and", "sand", "dog"]))
+console.log(wordBreak("catsanddog", ["cat", "cats", "and", "sand", "dog"]));
