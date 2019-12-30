@@ -24,6 +24,7 @@ var wordBreak = function (s, wordDict) {
 
   return res;
 
+  // TODO 记忆化优化
   function dfs(s, str) {
     if (s.length === 0) {
       res.push(str.join(' '));
