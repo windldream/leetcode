@@ -4,22 +4,21 @@
  * @return {boolean}
  */
 var wordBreak = function(s, wordDict) {
-    let len = s.length, memo = {};
+    let len = s.length, dp = [];
 
     if (len === 0) {
       return true;
     }
 
+    dp[0] = true;
     for (let i = 1; i <= len; i++) {
-      if (wordDict.includes(s.substring(0, i))) {
-        if (memo[s.substring(i)] || wordBreak(s.substring(i), wordDict)) {
-          memo[s.substring(i)] = false
-          return true;
+      for (let j = 0; j <= i; j++) {
+        if (dp[j] && wordDict.includes(s.substring(j, i))) {
+          dp[i] = true;
         }
       }
     }
-    memo[s] = false;
-    return false;
+    return !!dp[len];
 };
 
-console.log(wordBreak('aaaaaaa', ["aaaa", "aaa"]))
+console.log(wordBreak('leetcode', ['leet', 'code'], {}))
