@@ -3,26 +3,28 @@
  * @return {number}
  */
 var rob = function (nums) {
-  let len = nums.length,
-    dp = [];
+  let len = nums.length;
 
   if (len === 0) {
     return 0;
   }
 
   // 0 表示不偷 1表示偷
+  let rob = 0,
+    notRob = 0;
   for (let i = 0; i < len; i++) {
-    dp[i] = [];
     if (i === 0) {
-      dp[i][0] = 0;
-      dp[i][1] = nums[i];
+      notRob = 0;
+      rob = nums[i];
       continue;
     }
-    dp[i][0] = Math.max(dp[i - 1][1], dp[i - 1][0]);
-    dp[i][1] = Math.max(dp[i - 1][0] + nums[i], dp[i - 1][1]);
+    let tempRob = rob,
+      tempN = notRob;
+    notRob = Math.max(tempRob, tempN);
+    rob = Math.max(tempN + nums[i], tempRob)
   }
 
-  return Math.max(dp[len - 1][0], dp[len - 1][1]);
+  return Math.max(rob, notRob);
 };
 
 console.log(rob([1, 2, 3, 1]))
