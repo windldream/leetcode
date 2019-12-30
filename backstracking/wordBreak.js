@@ -5,22 +5,39 @@
  */
 var wordBreak = function (s, wordDict) {
   let len = s.length,
+    res = [],
     dp = [];
 
-  dp[0] = [''];
+  dp[0] = true;
   for (let i = 1; i <= len; i++) {
-    let list = [];
-    for (let j = 0; j < i; j++) {
-      if (dp[j].length && wordDict.includes(s.substring(j, i))) {
-        dp[j].forEach(item => {
-          list.push(item + (item ? ' ' : '') + s.substring(j, i));
-        });
+    for (let j = 0; j <= i; j++) {
+      if (dp[j] && wordDict.includes(s.substring(j, i))) {
+        dp[i] = true;
       }
     }
-    dp[i] = list;
   }
 
-  return dp[len];
+  if (!dp[len]) {
+    return [];
+  }
+  dfs(s, []);
+
+  return res;
+
+  function dfs(s, str) {
+    if (s.length === 0) {
+      res.push(str.join(' '));
+      return;
+    }
+
+    for (let i = 1; i <= s.length; i++) {
+      if (wordDict.includes(s.substring(0, i))) {
+        str.push(s.substring(0, i))
+        dfs(s.substring(i), str.slice())
+        str.pop();
+      }
+    }
+  }
 };
 
-console.log(wordBreak("catsanddog", ["cat", "cats", "and", "sand", "dog"]));
+console.log(wordBreak("pineapplepenapple", ["apple", "pen", "applepen", "pine", "pineapple"]));
