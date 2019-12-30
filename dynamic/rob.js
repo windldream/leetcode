@@ -9,22 +9,15 @@ var rob = function (nums) {
     return 0;
   }
 
-  // 0 表示不偷 1表示偷
-  let rob = 0,
-    notRob = 0;
+  let prevMax = 0,
+    currMax = 0;
   for (let i = 0; i < len; i++) {
-    if (i === 0) {
-      notRob = 0;
-      rob = nums[i];
-      continue;
-    }
-    let tempRob = rob,
-      tempN = notRob;
-    notRob = Math.max(tempRob, tempN);
-    rob = Math.max(tempN + nums[i], tempRob)
+    let temp = currMax;
+    currMax = Math.max(prevMax + nums[i], currMax);
+    prevMax = temp;
   }
 
-  return Math.max(rob, notRob);
+  return currMax;
 };
 
 console.log(rob([1, 2, 3, 1]))
