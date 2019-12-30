@@ -21,4 +21,4 @@ var wordBreak = function(s, wordDict) {
     return !!dp[len];
 };
 
-console.log(wordBreak('leetcode', ['leet', 'code'], {}))
+console.log(wordBreak('leetcode', ['leet', 'code']))
