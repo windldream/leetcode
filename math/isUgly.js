@@ -9,19 +9,22 @@ var isUgly = function(num) {
     return true;
   }
 
-  if (num < 6) {
-    return uglyArr.includes(num);
+  while (true) {
+    if (num < 6) {
+      return uglyArr.includes(num);
+    }
+    if (Number.isInteger(num / 2)) {
+      num = num / 2;
+      continue;
+    } else if (Number.isInteger(num / 3)) {
+      num = num / 3;
+      continue;
+    } else if (Number.isInteger(num / 5)) {
+      num = num / 5;
+      continue;
+    }
+    return false;
   }
-
-  if (Number.isInteger(num / 2)) {
-    return isUgly(num / 2);
-  } else if (Number.isInteger(num / 3)) {
-    return isUgly(num / 3);
-  } else if (Number.isInteger(num / 5)) {
-    return isUgly(num / 5);
-  }
-
-  return false;
 };
 
-console.log(isUgly(0))
+console.log(isUgly(14))
