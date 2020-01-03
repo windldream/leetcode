@@ -32,7 +32,6 @@ var NumMatrix = function(matrix) {
 NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {
   let sum = 0;
   for (let i = row1; i <= row2; i++) {
-    console.log(this.sum[i][col2 + 1], this.sum[i][col1])
     sum += this.sum[i][col2 + 1] - this.sum[i][col1] ;
   }
   return sum;
