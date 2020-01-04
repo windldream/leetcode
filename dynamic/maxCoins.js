@@ -2,8 +2,9 @@
  * @param {number[]} nums
  * @return {number}
  */
-var maxCoins = function(nums) {
-  let len = nums.length, dp = [], sum = 0;
+var maxCoins = function (nums) {
+  let len = nums.length,
+    sum = 0;
 
   if (nums.length === 0) {
     return 0;
