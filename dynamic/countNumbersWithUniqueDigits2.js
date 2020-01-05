@@ -12,6 +12,9 @@ var countNumbersWithUniqueDigits = function (n) {
   if (n === 1) {
     return 10;
   }
+  if (n > 10) {
+    n = 10;
+  }
   let res = 10,
     prev = 9;
 
