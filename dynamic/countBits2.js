@@ -13,11 +13,10 @@ var countBits = function (num) {
   let dp = [];
   dp[0] = 0;
   for (let i = 1; i <= num; i++) {
-    let n = Math.floor(Math.log2(i));
-    if (i - Math.pow(2, n) === 0) {
-      dp[i] = 1;
+    if (i % 2) {
+      dp[i] = dp[i - 1] + 1;
     } else {
-      dp[i] = dp[i - Math.pow(2, n)] + 1;
+      dp[i] = dp[i / 2];
     }
   }
   return dp;
