@@ -4,6 +4,7 @@
  * @return {number}
  */
 var combinationSum4 = function (nums, target) {
+  nums.sort((a, b) => a - b);
   const len = nums.length,
     dp = [];
   if (len === 0) {
@@ -16,6 +17,8 @@ var combinationSum4 = function (nums, target) {
     for (let j = 0; j < len; j++) {
       if (i - nums[j] >= 0) {
         dp[i] += dp[i - nums[j]];
+      } else {
+        break;
       }
     }
   }
