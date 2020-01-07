@@ -17,13 +17,12 @@ var canCross = function (stones) {
   for (let i = 1; i < len; i++) {
     for (let j = 0; j < i; j++) {
       if (i === 1) {
-        let k = 0;
         let dis = stones[i] - stones[j];
-        if (dis > k + 1) {
+        if (dis > 1) {
           continue;
         }
-        if (dis === k + 1) {
-          dp[i][j] = k + 1;
+        if (dis === 1) {
+          dp[i][j] = 1;
         }
         continue;
       }
@@ -54,4 +53,4 @@ var canCross = function (stones) {
   return dp[len - 1].some(val => val != 0);
 };
 
-console.log(canCross([0, 1, 3, 6, 10, 15, 16, 21]))
+console.log(canCross([0, 1, 2, 3, 4, 8, 9, 11]))
