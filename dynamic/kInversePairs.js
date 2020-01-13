@@ -7,6 +7,7 @@ var kInversePairs = function(n, k) {
   const dp = [],
     M = 10 ** 9 + 7;
 
+  // dp[i][j]表示 1 到 i 中包含 j 个逆序对的个数
   for (let i = 0; i <= n; i++) {
     dp[i] = Array(k).fill(0);
     for (let j = 0; j <= k; j++) {
