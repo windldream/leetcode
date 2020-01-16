@@ -14,11 +14,14 @@ var orderOfLargestPlusSign = function(N, mines) {
   }
 
   for (let i = 0; i < N; i++) {
-    if (max > i + 1 || max > N - i) {
+    if (max > N / 2) {
+      return max;
+    }
+    if (max >= i + 1 || max >= N - i) {
       continue;
     }
     for (let j = 0; j < N; j++) {
-      if (max > j + 1 || max > N - j) {
+      if (max >= j + 1 || max >= N - j) {
         continue;
       }
       if (check(i, j)) {
