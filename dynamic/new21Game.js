@@ -26,7 +26,7 @@ var new21Game = function(N, K, W) {
     if (i < K) {
       sum += dp[i];
     }
-    // i > W 则之前的 则 i - W + 加上 [1, W] 中的任何数字都不满足等于 N 的条件
+    // i > W 则之前的 则 i - W + 加上 [1, W] 中的任何数字都不满足等于 i 的条件
     if (i > W) {
       sum -= dp[i - W];
     }
