@@ -4,11 +4,14 @@
  */
 var oddEvenJumps = function(A) {
   const len = A.length,
-    map = new Map();
+    map = {};
   let count = 0;
   for (let i = len - 1; i >= 0; i--) {
     if (helper(A, i, true)) {
+      map[i + '$' + true] = true;
       count++;
+    } else {
+      map[i + '$' + true] = false;
     }
   }
   return count;
@@ -16,13 +19,12 @@ var oddEvenJumps = function(A) {
   function helper(A, index, isOdd) {
     const len = A.length;
     if (index === len - 1) {
-      map.set(index + '$' + isOdd, true);
       return true;
     }
-    if (map.has(index + '$' + isOdd)) {
-      return map.get(index + '$' + isOdd);
+    if (map[index + '$' + isOdd] !== undefined) {
+      return map[index + '$' + isOdd];
     }
-    // 奇数
+    // 奇数 first
     if (isOdd) {
       const min = Math.min.apply(
         null,
@@ -33,8 +35,6 @@ var oddEvenJumps = function(A) {
           return helper(A, i, false);
         }
       }
-      map.set(index + '$' + isOdd, false);
-      return false;
     } else {
       const max = Math.max.apply(
         null,
@@ -45,9 +45,9 @@ var oddEvenJumps = function(A) {
           return helper(A, i, true);
         }
       }
-      map.set(index + '$' + isOdd, false);
-      return false;
     }
+    map[index + '$' + isOdd] = false;
+    return false;
   }
 };
 
