@@ -26,24 +26,32 @@ var oddEvenJumps = function(A) {
     }
     // 奇数 first
     if (isOdd) {
-      const min = Math.min.apply(
-        null,
-        A.slice(index + 1).filter(item => item >= A[index])
-      );
+      let min = Infinity,
+        nextIndex = -1;
       for (let i = index + 1; i < len; i++) {
-        if (A[i] === min) {
-          return helper(A, i, false);
+        if (A[i] >= A[index]) {
+          if (A[i] < min) {
+            min = A[i];
+            nextIndex = i;
+          }
         }
       }
+      if (nextIndex !== -1) {
+        return helper(A, nextIndex, false);
+      }
     } else {
-      const max = Math.max.apply(
-        null,
-        A.slice(index + 1).filter(item => item <= A[index])
-      );
+      let max = -Infinity,
+        nextIndex = -1;
       for (let i = index + 1; i < len; i++) {
-        if (A[i] === max) {
-          return helper(A, i, true);
+        if (A[i] <= A[index]) {
+          if (A[i] > max) {
+            max = A[i];
+            nextIndex = i;
+          }
         }
+      }
+      if (nextIndex !== -1) {
+        return helper(A, nextIndex, true);
       }
     }
     map[index + '$' + isOdd] = false;
