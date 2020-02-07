@@ -27,7 +27,7 @@ var maxJumps = function(arr, d) {
       }
     }
 
-    // 往又跳
+    // 往右跳
     for (let j = index + 1; j <= Math.min(index + d, len - 1); j++) {
       if (arr[j] >= arr[index]) {
         break;
