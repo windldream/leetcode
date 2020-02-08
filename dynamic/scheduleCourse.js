@@ -8,17 +8,16 @@ var scheduleCourse = function(courses) {
   let total = 0;
 
   for (let c of courses) {
-    let max, index;
-    if (queue.length) {
-      [max, index] = getMax(queue);
-    }
     if (total + c[0] <= c[1]) {
       total += c[0];
       queue.push(c);
-    } else if (queue.length && max > c[0]) {
-      total += c[0] - max;
-      queue.splice(index, 1);
-      queue.push(c);
+    } else if (queue.length) {
+      let [max, index] = getMax(queue);
+      if (max > c[0]) {
+        total += c[0] - max;
+        queue.splice(index, 1);
+        queue.push(c);
+      }
     }
   }
 
