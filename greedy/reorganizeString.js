@@ -25,6 +25,9 @@ var reorganizeString = function(S) {
     odd = 1;
   const res = [];
   for (let key in map) {
+    // 奇数位的索引先填写
+    // 如果奇数位的索引已经填写完毕
+    // 则开始偶数位的填写
     while (map[key] > 0 && map[key] < Math.floor(len / 2) + 1 && odd < len) {
       res[odd] = key;
       odd += 2;
@@ -40,4 +43,4 @@ var reorganizeString = function(S) {
   return res.join('');
 };
 
-console.log(reorganizeString('aab'));
+console.log(reorganizeString('aabbcc'));
