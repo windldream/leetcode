@@ -10,20 +10,20 @@
  * @return {number}
  */
 var sumNumbers = function(root) {
-  const res = [];
-  helper(root, []);
+  let res = 0;
+  helper(root, '');
 
-  return res.map(val => +val.join('')).reduce((prev, cur) => prev + cur, 0);
+  return res;
 
-  function helper(root, path) {
+  function helper(root, str) {
     if (root === null) {
       return 0;
     }
-    path.push(root.val);
+    str += root.val;
     if (root.left === null && root.right === null) {
-      res.push(path);
+      res += +str;
     }
-    helper(root.left, path.slice());
-    helper(root.right, path.slice());
+    helper(root.left, str);
+    helper(root.right, str);
   }
 };
