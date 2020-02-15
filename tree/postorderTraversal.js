@@ -10,17 +10,38 @@
  * @return {number[]}
  */
 var postorderTraversal = function(root) {
-  const res = [];
-  helper(root);
-  return res;
+  const white = 0,
+    gray = 1,
+    res = [],
+    stack = [
+      {
+        color: white,
+        node: root
+      }
+    ];
 
-  function helper(root) {
-    if (root === null) {
-      return;
+  while (stack.length) {
+    const { color, node } = stack.pop();
+    if (node === null) {
+      continue;
     }
-
-    helper(root.left);
-    helper(root.right);
-    res.push(root.val);
+    if (color === white) {
+      stack.push({
+        color: gray,
+        node: node
+      });
+      stack.push({
+        color: white,
+        node: node.right
+      });
+      stack.push({
+        color: white,
+        node: node.left
+      });
+    } else {
+      res.push(node.val);
+    }
   }
+
+  return res;
 };
