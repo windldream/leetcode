@@ -10,16 +10,32 @@
  * @return {number[]}
  */
 var preorderTraversal = function(root) {
-  const res = [];
-  helper(root);
-  return res;
+  const white = 0,
+    gray = 1,
+    res = [],
+    stack = [
+      {
+        color: white,
+        node: root
+      }
+    ];
 
-  function helper(root) {
-    if (root === null) {
-      return res;
+  while (stack.length) {
+    const { color, node } = stack.pop();
+    if (node === null) {
+      continue;
     }
-    res.push(root.val);
-    helper(root.left);
-    helper(root.right);
+    if (color === white) {
+      stack.push({ color: white, node: node.right });
+      stack.push({ color: white, node: node.left });
+      stack.push({
+        color: gray,
+        node: node
+      });
+    } else {
+      res.push(node.val);
+    }
   }
+
+  return res;
 };
