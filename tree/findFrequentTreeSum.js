@@ -26,23 +26,10 @@ var findFrequentTreeSum = function(root) {
 
   function dfs(root) {
     if (root === null) {
-      return;
+      return 0;
     }
-    let sum;
-    sum = helper(root);
+    let sum = root.val + dfs(root.left) + dfs(root.right);
     map[sum] = (map[sum] || 0) + 1;
-    dfs(root.left);
-    dfs(root.right);
-
-    function helper(root, sum) {
-      if (root === null) {
-        return 0;
-      }
-      sum = root.val;
-      if (root.left === null && root.right === null) {
-        return sum;
-      }
-      return sum + helper(root.left) + helper(root.right);
-    }
+    return sum;
   }
 };
