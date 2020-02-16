@@ -11,16 +11,20 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-  const res = [];
-  helper(root);
-  return res[k - 1];
+  const iterator = helper(root);
+  let res;
+  for (let i = 0; i < k; i++) {
+    res = iterator.next();
+  }
 
-  function helper(root) {
+  return res.value;
+
+  function* helper(root) {
     if (root === null) {
       return;
     }
-    helper(root.left);
-    res.push(root.val);
-    helper(root.right);
+    yield* helper(root.left);
+    yield root.val;
+    yield* helper(root.right);
   }
 };
