@@ -11,24 +11,34 @@
  * @return {TreeNode}
  */
 var constructFromPrePost = function(pre, post) {
-  const len = pre.length;
-  if (len === 0) {
-    return null;
-  }
+  return helper(pre, 0, pre.length - 1, post, 0, post.length - 1);
 
-  const root = new TreeNode(pre[0]);
-  if (len === 1) {
+  function helper(pre, preStart, preEnd, post, postStart, postEnd) {
+    if (preStart > preEnd || postStart > postEnd) return null;
+    const val = pre[preStart];
+    const root = new TreeNode(val);
+    if (preStart === preEnd) {
+      return null;
+    }
+    const rootIndex = post.indexOf(pre[preStart + 1], preStart);
+    const leftNum = rootIndex - postStart + 1;
+
+    root.left = helper(
+      pre,
+      preStart + 1,
+      preStart + leftNum,
+      post,
+      postStart,
+      rootIndex
+    );
+    root.right = helper(
+      pre,
+      preStart + leftNum + 1,
+      preEnd,
+      post,
+      rootIndex + 1,
+      postEnd - 1
+    );
     return root;
   }
-
-  // 左分支有多少节点
-  const l = post.indexOf(pre[1]) + 1;
-
-  root.left = constructFromPrePost(pre.slice(1, l + 1), post.slice(0, l));
-  root.right = constructFromPrePost(
-    pre.slice(l + 1, len),
-    post.slice(l, len - 1)
-  );
-
-  return root;
 };
