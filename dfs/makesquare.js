@@ -12,7 +12,7 @@ var makesquare = function(nums) {
   if (nums.some(item => item > aver)) {
     return false;
   }
-  const memo = {};
+  nums.sort((a, b) => b - a);
   return dfs(nums, 0, aver, aver, aver, aver);
 
   function dfs(nums, index, u, d, l, r) {
