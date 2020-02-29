@@ -17,7 +17,7 @@ var findCircleNum = function(M) {
 
   function dfs(visited, i) {
     for (let j = 0; j < c; j++) {
-      if (M[i][j] && !visited[j]) {
+      if (M[i][j] === 1 && !visited[j]) {
         visited[j] = 1;
         dfs(visited, j);
       }
