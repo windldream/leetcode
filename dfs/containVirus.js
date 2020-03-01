@@ -27,7 +27,7 @@ var containVirus = function(grid) {
         if (nexts.length === 0 || next.size > nexts[blockIndex].size) {
           virusArea = curr;
           blockIndex = nexts.length;
-          blockWalls = compute.walls; 
+          blockWalls = compute.walls;
         }
         nexts.push(next);
       }
@@ -52,9 +52,9 @@ var containVirus = function(grid) {
       }
     }
   }
-  
+
   return totalWalls;
-  
+
   function getArea(x, y, m, n, grid, visited, curr, next, compute) {
     if (x < 0 || y < 0 || x >= m || y >= n || grid[x][y] === 2) return;
     const key = x + '$' + y;
