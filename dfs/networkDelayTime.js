@@ -15,6 +15,7 @@ var networkDelayTime = function(times, N, K) {
 
   const visited = Array(N + 1).fill(false);
   visited[K] = true;
+  // 找出到其他顶点的最短路径
   for (let i = 1; i < N; i++) {
     let minIndex = 0, minDis = Infinity;
     for (let j = 1; j <= N; j++) {
