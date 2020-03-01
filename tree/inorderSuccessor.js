@@ -14,19 +14,13 @@ var inorderSuccessor = function(root, p) {
   if (root === null) {
     return null;
   }
-  let node = null;
-  inOrder(root);
-  return node;
-
-  function inOrder(root) {
-    if (root === null) {
-      return;
+  if (root.val <= p.val) {
+    return inorderSuccessor(root.right, p);
+  } else {
+    const left = inorderSuccessor(root.left, p);
+    if (!left) {
+      return root;
     }
-    inOrder(root.left);
-    if (root.val === p.val) {
-      node = root.left || root.right;
-      return;
-    }
-    inOrder(root.right);
+    return left;
   }
 };
