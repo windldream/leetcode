@@ -5,7 +5,7 @@
  */
 var pyramidTransition = function(bottom, allowed) {
   return dfs(bottom, allowed, 0, []);
-  
+
   function dfs(bottom, allowed, index, next) {
     if (bottom.length === 1) {
       return true;
