@@ -20,7 +20,7 @@ var isBipartite = function(graph) {
     // 将相邻的两个点染成不同的颜色
     colors[index] = lastColor === 1 ? 2 : 1;
     for (const u of graph[index]) {
-      if (!dfs(graph, u, colors, colors[i])) {
+      if (!dfs(graph, u, colors, colors[index])) {
         return false;
       }
     }
