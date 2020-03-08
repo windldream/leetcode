@@ -20,10 +20,16 @@ var colorBorder = function(grid, r0, c0, color) {
     for (let d = 0; d < 4; d++) {
       const i = r + dirR[d];
       const j = c + dirC[d];
-      if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || (grid[i][j] !== old && !visited.has(i + '$' + j))) {
+      if (
+        i < 0 ||
+        i >= grid.length ||
+        j < 0 ||
+        j >= grid[0].length ||
+        (grid[i][j] !== old && !visited.has(i + '$' + j))
+      ) {
         grid[r][c] = color;
       } else {
-        dfs(grid, i, j, old, color, visited)
+        dfs(grid, i, j, old, color, visited);
       }
     }
   }

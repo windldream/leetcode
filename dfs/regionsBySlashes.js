@@ -9,11 +9,11 @@ var regionsBySlashes = function(grid) {
     .map(() => Array(len * 3).fill(0));
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < len; j++) {
-      if (grid[i][j] === "/") {
+      if (grid[i][j] === '/') {
         graph[i * 3][j * 3 + 2] = 1;
         graph[i * 3 + 1][j * 3 + 1] = 1;
         graph[i * 3 + 2][j * 3] = 1;
-      } else if (grid[i][j] === "\\") {
+      } else if (grid[i][j] === '\\') {
         graph[i * 3][j * 3] = 1;
         graph[i * 3 + 1][j * 3 + 1] = 1;
         graph[i * 3 + 2][j * 3 + 2] = 1;
