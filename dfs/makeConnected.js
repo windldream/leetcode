@@ -22,12 +22,13 @@ var makeConnected = function(n, connections) {
   }
   return set.size - 1;
 
+  // 压缩路径
   function find(x) {
     let r = x;
     while (hashMap[r] != r) {
       r = hashMap[r];
     }
-    return r;
+    return (hashMap[x] = r);
   }
 
   function union(x, y) {
