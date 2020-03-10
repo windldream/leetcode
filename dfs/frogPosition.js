@@ -40,7 +40,6 @@ var frogPosition = function(n, edges, t, target) {
         pr[cur] -= p;
         pr[next] += p;
         dfs(next, t - 1);
-        visited[next] = 0;
       }
     }
   }
