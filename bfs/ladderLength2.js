@@ -2,34 +2,33 @@
  * @param {string} beginWord
  * @param {string} endWord
  * @param {string[]} wordList
- * @return {string[]}
+ * @return {number}
  */
-var findLadders = function(beginWord, endWord, wordList) {
-  const wildCardToWordList = createWildCardToWordMap(wordList);
+var ladderLength = function(beginWord, endWord, wordList) {
+  const stack = [];
   const visited = new Set();
-  return transform(visited, beginWord, endWord, wildCardToWordList);
+  const wildCardToWordList = createWildCardToWordMap([beginWord, ...wordList]);
+  let res = 0;
+  stack.push(beginWord);
+  visited.add(beginWord);
 
-  function transform(visited, begin, end, wordList) {
-    if (begin === end) {
-      const path = [];
-      path.push(begin);
-      return path;
-    } else if (visited.has(begin)) {
-      return [];
-    }
-
-    visited.add(begin);
-    const words = getValidWords(begin, wordList);
-    for (const word of words) {
-      const path = transform(visited, word, end, wordList);
-      if (path.length) {
-        path.unshift(begin);
-        return path;
+  while (stack.length) {
+    const len = stack.length;
+    for (let i = 0; i < len; i++) {
+      const word = stack.shift();
+      if (word === endWord) {
+        return res + 1;
+      }
+      const words = getValidWords(word, wildCardToWordList);
+      for (let w of words) {
+        if (visited.has(w)) continue;
+        stack.push(w);
+        visited.add(w);
       }
     }
-
-    return [];
+    res++;
   }
+  return 0;
 
   function createWildCardToWordMap(wordList) {
     const map = new Map();
