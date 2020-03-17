@@ -6,28 +6,45 @@
 var kSimilarity = function (A, B) {
   const queue = [];
   const visited = new Set();
-  let k = 0;
+  let step = 0;
   queue.push(A);
   visited.add(A);
 
   while (queue.length) {
     const len = queue.length;
-    for (let i = 0; i < len; i++) {
-      const str = queue.shift().split('');
-      if (str.join('') === B) {
-        return k;
+    for (let k = 0; k < len; k++) {
+      const str = queue.shift();
+      if (str === B) {
+        return step;
       }
-      for (let s = 0; s < str.length; s++) {
-        for (let j = 0; j < str[s].length; j++) {
-          [str[s], str[j]] = [str[j], str[s]];
-          if (visited.has(str.join(''))) continue;
-          queue.push(str.join(''));
-          visited.add(str.join(''));
+
+      for (const next of getNexts(str, B)) {
+        if (!visited.has(next)) {
+          queue.push(next);
+          visited.add(next);
         }
       }
     }
-    k++;
+    step += 1;
+    console.log(queue);
   }
 
   return -1;
+
+  function getNexts(str, target) {
+    const res = new Set();
+    let i = 0;
+    for (; i < str.length; i++) {
+      if (str[i] !== target[i]) break;
+    }
+    const strToArr = str.split('');
+    for (let j = i + 1; j < strToArr.length; j++) {
+      if (strToArr[j] === target[i]) {
+        [strToArr[i], strToArr[j]] = [strToArr[j], strToArr[i]];
+        res.add(strToArr.join(''));
+        [strToArr[i], strToArr[j]] = [strToArr[j], strToArr[i]];
+      }
+    }
+    return res;
+  }
 };
