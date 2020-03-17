@@ -26,7 +26,6 @@ var kSimilarity = function (A, B) {
       }
     }
     step += 1;
-    console.log(queue);
   }
 
   return -1;
