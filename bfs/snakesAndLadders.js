@@ -60,5 +60,3 @@ var snakesAndLadders = function (board) {
     return res;
   }
 };
-
-console.log(snakesAndLadders([[-1, 4, -1], [6, 2, 6], [-1, 3, -1]]))
