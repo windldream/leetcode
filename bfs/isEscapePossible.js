@@ -4,22 +4,22 @@
  * @param {number[]} target
  * @return {boolean}
  */
-var isEscapePossible = function (blocked, source, target) {
+var isEscapePossible = function(blocked, source, target) {
   const blockLen = blocked.length;
   if (blockLen === 0) {
     return true;
   }
 
-  const visited = new Set();
-  const dir = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  const startVisited = new Set();
+  const endVisited = new Set();
   const M = 10 ** 6 - 1;
   const startQueue = [];
   const endQueue = [];
 
   startQueue.push(source);
   endQueue.push(target);
-  visited.add(source.join('$'));
-  visited.add(target.join('$'));
+  startVisited.add(source.join('$'));
+  endVisited.add(target.join('$'));
 
   while (startQueue.length && endQueue.length) {
     if (startQueue.length > blockLen && endQueue.length > blockLen) {
@@ -30,15 +30,7 @@ var isEscapePossible = function (blocked, source, target) {
       if (endQueue.some(([i, j]) => i === r && j === c)) {
         return true;
       }
-      for (let d = 0; d < 4; d++) {
-        const m = dir[d][0] + r;
-        const n = dir[d][0] + c;
-        if (m < 0 || n < 0 || m >= M || n >= M || blocked.some(block => block[0] === m && block[1] === n) || visited.has(m + '$' + n)) {
-          continue;
-        }
-        startQueue.push([m, n]);
-        visited.add(m + '$' + n);
-      }
+      addNode(startQueue, r, c, startVisited);
     }
 
     for (let i = endQueue.length - 1; i >= 0; i--) {
@@ -46,17 +38,34 @@ var isEscapePossible = function (blocked, source, target) {
       if (startQueue.some(([i, j]) => i === r && j === c)) {
         return true;
       }
-      for (let d = 0; d < 4; d++) {
-        const m = dir[d][0] + r;
-        const n = dir[d][0] + c;
-        if (m < 0 || n < 0 || m >= M || n >= M || blocked.some(block => block[0] === m && block[1] === n) || visited.has(m + '$' + n)) {
-          continue;
-        }
-        endQueue.push([m, n]);
-        visited.add(m + '$' + n);
-      }
+      addNode(endQueue, r, c, endVisited);
     }
   }
 
   return false;
+
+  function addNode(queue, r, c, visited) {
+    const dir = [
+      [0, 1],
+      [0, -1],
+      [-1, 0],
+      [1, 0]
+    ];
+    for (let d = 0; d < 4; d++) {
+      const m = dir[d][0] + r;
+      const n = dir[d][1] + c;
+      if (
+        m < 0 ||
+        n < 0 ||
+        m >= M ||
+        n >= M ||
+        blocked.some(([i, j]) => i === m && j === n) ||
+        visited.has(m + '$' + n)
+      ) {
+        continue;
+      }
+      queue.push([m, n]);
+      visited.add(m + '$' + n);
+    }
+  }
 };
