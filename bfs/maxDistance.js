@@ -28,9 +28,9 @@ var maxDistance = function(grid) {
 
   function getDis(i, j, grid) {
     const queue = [];
-    const visted = new Set();
+    const visited = new Set();
     queue.push([i, j]);
-    visted.add(i + '$' + j);
+    visited.add(i + '$' + j);
 
     while (queue.length) {
       for (let len = queue.length - 1; len >= 0; len--) {
@@ -46,11 +46,11 @@ var maxDistance = function(grid) {
             n < 0 ||
             m >= grid.length ||
             n >= grid[0].length ||
-            visted.has(m + '$' + n)
+            visited.has(m + '$' + n)
           )
             continue;
           queue.push([m, n]);
-          visted.add(m + '$' + n);
+          visited.add(m + '$' + n);
         }
       }
     }
