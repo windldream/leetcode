@@ -8,6 +8,8 @@ var shortestPathBinaryMatrix = function(grid) {
   if (grid[0][0] === 1 || grid[m - 1][n - 1] === 1) {
     return -1;
   }
+
+  const visited = new Set();
   const dir = [
     [0, 1],
     [0, -1],
@@ -20,6 +22,7 @@ var shortestPathBinaryMatrix = function(grid) {
   ];
   const queue = [];
   queue.push([0, 0]);
+  visited.add(0 + '$' + 0);
 
   let step = 0;
   while (queue.length) {
@@ -37,10 +40,12 @@ var shortestPathBinaryMatrix = function(grid) {
           n < 0 ||
           m >= grid.length ||
           n >= grid[0].length ||
-          grid[m][n] === 1
+          grid[m][n] === 1 ||
+          visited.has(m + '$' + n)
         )
           continue;
         queue.push([m, n]);
+        visited.add(m + '$' + n);
       }
     }
   }
