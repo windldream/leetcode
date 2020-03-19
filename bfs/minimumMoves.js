@@ -2,56 +2,116 @@
  * @param {number[][]} grid
  * @return {number}
  */
-var minimumMoves = function (grid) {
+var minimumMoves = function(grid) {
   const n = grid.length;
-  const HORIZONTAL = 1;
-  const VERTICAL = 2;
   const visited = new Set();
   const queue = [];
-  queue.push([[0, 0], [0, 1], VERTICAL]);
-  visited.add([0, 0].join('$') + '#' + [0, 1].join('$') + '#' + HORIZONTAL);
+  queue.push([0, 0, 0, 1]);
+  visited.add([0, 0, 0, 1].toString());
 
   let step = 0;
   while (queue.length) {
-    for (let len = queue.length - 1; len >= 0; len--) {
-      const [tail, head, dir] = queue.shift();
-      const [headR, headC] = head;
-      const [tailR, tailC] = tail;
-      if (tailR === n - 1 && tailC === n - 2 && headR === n - 1 && headC === n - 1) {
+    const len = queue.length;
+    for (let i = 0; i < len; i++) {
+      const [x1, y1, x2, y2] = queue.shift();
+      if (x1 === n - 1 && y1 === n - 2 && x2 === n - 1 && y2 === n - 1) {
         return step;
       }
-      if (dir === HORIZONTAL) {
-        if (isValid(headR, headC + 1)) {
-          if (visited.has([headR, headC].join('$') + '#' + [headR, headC + 1].join('$') + '#' + HORIZONTAL)) continue;
-          queue.push([[headR, headC], [headR, headC + 1], HORIZONTAL]);
-          visited.add([headR, headC].join('$') + '#' + [headR, headC + 1].join('$') + '#' + HORIZONTAL);
+      if (x1 === x2) {
+        // 右移
+        if (
+          y2 + 1 < n &&
+          grid[x1][y2 + 1] != 1 &&
+          !visited.has([x2, y2, x2, y2 + 1].toString())
+        ) {
+          const temp = [x2, y2, x2, y2 + 1];
+          queue.push(temp);
+          visited.add(temp.toString());
         }
-        if (isValid(tailR + 1, tailC)) {
-          if (visited.has([tailR, tailC].join('$') + '#' + [tailR + 1, tailC].join('$') + '#' + VERTICAL)) continue;
-          queue.push([[tailR, tailC], [tailR + 1, tailC], VERTICAL]);
-          visited.add([tailR, tailC].join('$') + '#' + [tailR + 1, tailC].join('$') + '#' + VERTICAL);
+
+        if (
+          x1 + 1 < n &&
+          grid[x1 + 1][y1] != 1 &&
+          grid[x1 + 1][y2] != 1 &&
+          !visited.has([x1 + 1, y1, x1 + 1, y2].toString())
+        ) {
+          // 下移
+          const temp = [x1 + 1, y1, x1 + 1, y2];
+          queue.push(temp);
+          visited.add(temp.toString());
+        }
+
+        if (
+          x1 + 1 < n &&
+          grid[x1 + 1][y1] != 1 &&
+          grid[x1 + 1][y2] != 1 &&
+          !visited.has([x1, y1, x1 + 1, y1].toString())
+        ) {
+          // 顺时针
+          const temp = [x1, y1, x1 + 1, y1];
+          queue.push(temp);
+          visited.add(temp.toString());
         }
       }
-      if (dir === VERTICAL) {
-        if (isValid(headR + 1, headC)) {
-          if (visited.has([headR, headC].join('$') + '#' + [headR + 1, headC].join('$') + '#' + VERTICAL)) continue;
-          queue.push([[headR, headC], [headR + 1, headC], VERTICAL]);
-          visited.add([headR, headC].join('$') + '#' + [headR + 1, headC].join('$') + '#' + VERTICAL);
+
+      if (y1 === y2) {
+        if (
+          y1 + 1 < n &&
+          grid[x1][y1 + 1] != 1 &&
+          grid[x2][y1 + 1] != 1 &&
+          !visited.has([x1, y1 + 1, x2, y1 + 1].toString())
+        ) {
+          // 右移
+          const temp = [x1, y1 + 1, x2, y1 + 1];
+          queue.push(temp);
+          visited.add(temp.toString());
         }
-        if (isValid(tailR, tailC + 1)) {
-          if (visited.has([tailR, tailC].join('$') + '#' + [tailR, tailC + 1].join('$') + '#' + HORIZONTAL)) continue;
-          queue.push([[tailR, tailC], [tailR, tailC + 1], HORIZONTAL]);
-          visited.add([tailR, tailC].join('$') + '#' + [tailR, tailC + 1].join('$') + '#' + HORIZONTAL);
+
+        // 下移
+        if (
+          x2 + 1 < n &&
+          grid[x2 + 1][y1] != 1 &&
+          !visited.has([x2, y2, x2 + 1, y2].toString())
+        ) {
+          const temp = [x2, y2, x2 + 1, y2];
+          queue.push(temp);
+          visited.add(temp.toString());
+        }
+
+        // 逆时针
+        if (
+          y1 + 1 < n &&
+          grid[x1][y1 + 1] != 1 &&
+          grid[x2][y2 + 1] != 1 &&
+          !visited.has([x1, y1, x1, y1 + 1])
+        ) {
+          const temp = [x1, y1, x1, y1 + 1];
+          queue.push(temp);
+          visited.add(temp.toString());
         }
       }
     }
     step++;
   }
-  return - 1;
-
-  function isValid(i, j) {
-    return i >= 0 && i < n && j >= 0 && j < n && grid[i][j] !== 1;
-  }
+  return -1;
 };
 
-console.log(minimumMoves([[0, 0, 0, 0, 0, 1], [1, 1, 0, 0, 1, 0], [0, 0, 0, 0, 1, 1], [0, 0, 1, 0, 1, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 0, 0, 0]]))
+console.log(
+  minimumMoves([
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+    [1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+    [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+    [0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0],
+    [0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0]
+  ])
+);
