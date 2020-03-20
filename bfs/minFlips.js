@@ -2,9 +2,15 @@
  * @param {number[][]} mat
  * @return {number}
  */
-var minFlips = function (mat) {
+var minFlips = function(mat) {
   const m = mat.length;
   const n = mat[0].length;
+  const dir = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1, 0]
+  ];
   const visited = new Set();
   const queue = [];
   queue.push(mat);
@@ -20,24 +26,31 @@ var minFlips = function (mat) {
       for (let i = 0; i < m; i++) {
         for (let j = 0; j < n; j++) {
           const copyMat = JSON.parse(JSON.stringify(matrix));
-          const newMatrix = reverse(copyMat, i, j)
-          if (visited.has(newMatrix.toString())) continue;
-          queue.push(newMatrix);
-          visited.add(newMatrix.toString());
+          reverse(copyMat, i, j);
+          if (visited.has(copyMat.toString())) continue;
+          queue.push(copyMat);
+          visited.add(copyMat.toString());
         }
       }
     }
     step++;
   }
-  return step;
+  return -1;
 
   function reverse(matrix, i, j) {
-    for (let k = 0; k < m; k++) {
-      matrix[k][j] = +!matrix[k][j]
-    }
-    for (let k = 0; k < n; k++) {
-      if (k === j) continue;
-      matrix[i][k] = +!matrix[i][k]
+    matrix[i][j] = 1 - matrix[i][j];
+    for (const [x, y] of dir) {
+      const r = i + x;
+      const c = j + y;
+      if (r < 0 || c < 0 || r >= m || c >= n) continue;
+      matrix[r][c] = 1 - matrix[r][c];
     }
   }
 };
+
+console.log(
+  minFlips([
+    [0, 0],
+    [0, 1]
+  ])
+);
