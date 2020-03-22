@@ -12,27 +12,30 @@
  */
 
 var addTwoNumbers = function(l1, l2) {
-    let p = l1, q = l2, dummyHead = new ListNode(null),
-        carry = 0, curr = dummyHead;
+  let p = l1,
+    q = l2,
+    dummyHead = new ListNode(null),
+    carry = 0,
+    curr = dummyHead;
 
-    while (p || q) {
-        let x = p && p.val || 0;
-        let y = q && q.val || 0;
-        let sum = x + y + carry;
-        carry = sum > 9 ? 1 : 0;
-        // 创建一个数值为 (sum % 10)(sum mod 10)的新结点
-        // 并将其设置为当前结点的下一个结点, 然后将当前结点前进到下一个结点
-        curr.next = new ListNode(sum % 10);
-        curr = curr.next
-        p = p && p.next;
-        q = q && q.next;
-    }
+  while (p || q) {
+    let x = (p && p.val) || 0;
+    let y = (q && q.val) || 0;
+    let sum = x + y + carry;
+    carry = sum > 9 ? 1 : 0;
+    // 创建一个数值为 (sum % 10)(sum mod 10)的新结点
+    // 并将其设置为当前结点的下一个结点, 然后将当前结点前进到下一个结点
+    curr.next = new ListNode(sum % 10);
+    curr = curr.next;
+    p = p && p.next;
+    q = q && q.next;
+  }
 
-    if (carry > 0) {
-        curr.next = new ListNode(carry);
-    }
+  if (carry > 0) {
+    curr.next = new ListNode(carry);
+  }
 
-    return dummyHead.next;
+  return dummyHead.next;
 };
 
 // 数组解法
