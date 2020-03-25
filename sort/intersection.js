@@ -4,5 +4,13 @@
  * @return {number[]}
  */
 var intersection = function (nums1, nums2) {
-  return Array.from(new Set(nums1.filter(val => nums2.includes(val))));
+  return nums1.filter((val) => {
+    let index = nums2.indexOf(val);
+    if (index > -1) {
+      nums2.splice(index, 1);
+      return true;
+    } else {
+      return false;
+    }
+  });
 };
