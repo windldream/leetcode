@@ -2,8 +2,8 @@
  * @param {number} N
  * @param {number[]} blacklist
  */
-var Solution = function(N, blacklist) {
-  this.map = new Map();
+var Solution = function (N, blacklist) {
+  this.map = {};
   const len = blacklist.length;
   this.nowLen = N - len;
   let startNum = this.nowLen;
@@ -20,7 +20,7 @@ var Solution = function(N, blacklist) {
 /**
  * @return {number}
  */
-Solution.prototype.pick = function() {
+Solution.prototype.pick = function () {
   const randomIndex = Math.floor(Math.random() * this.nowLen);
   if (this.map[randomIndex]) {
     return this.map[randomIndex];
