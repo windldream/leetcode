@@ -11,8 +11,9 @@ var findSwapValues = function(array1, array2) {
     return [];
   }
   diff = diff / 2;
+  const set = new Set(array2);
   for (const num of array1) {
-    if (array2.includes(num - diff)) {
+    if (set.has(num - diff)) {
       return [num, num - diff];
     }
   }
