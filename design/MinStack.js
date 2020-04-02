@@ -2,7 +2,7 @@
  * initialize your data structure here.
  */
 var MinStack = function() {
-  this.stack = [];
+  this.head = null;
 };
 
 /**
@@ -10,29 +10,39 @@ var MinStack = function() {
  * @return {void}
  */
 MinStack.prototype.push = function(x) {
-  this.stack.unshift(x);
+  if (this.head === null) {
+    this.head = new Node(x, x, null);
+  } else {
+    this.head = new Node(x, Math.min(this.head.min, x), this.head);
+  }
 };
 
 /**
  * @return {void}
  */
 MinStack.prototype.pop = function() {
-  this.stack.shift();
+  this.head = this.head.next;
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.top = function() {
-  return this.stack[0];
+  return this.head.val;
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function() {
-  return Math.min.apply(null, this.stack);
+  return this.head.min;
 };
+
+function Node(val, min, next) {
+  this.val = val;
+  this.min = min;
+  this.next = next;
+}
 
 /**
  * Your MinStack object will be instantiated and called as such:
