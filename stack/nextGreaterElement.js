@@ -13,6 +13,5 @@ var nextGreaterElement = function (nums1, nums2) {
     stack.push(nums2[i])
   }
 
-  console.log(stack, map)
   return nums1.map((num) => (map.has(num) && map.get(num)) || -1)
 }
