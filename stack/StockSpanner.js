@@ -1,5 +1,6 @@
 var StockSpanner = function () {
   this.stack = []
+  this.ans = []
 }
 
 /**
@@ -7,16 +8,14 @@ var StockSpanner = function () {
  * @return {number}
  */
 StockSpanner.prototype.next = function (price) {
-  let res = 0
-  for (let i = this.stack.length - 1; i >= 0; i--) {
-    if (this.stack[i] <= price) {
-      res++
-    } else {
-      break
-    }
+  let ans = 1
+  while (this.stack.length && this.stack[this.stack.length - 1] <= price) {
+    this.stack.pop()
+    ans += this.ans.pop()
   }
   this.stack.push(price)
-  return res + 1
+  this.ans.push(ans)
+  return ans
 }
 
 /**
