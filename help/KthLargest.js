@@ -1,8 +1,12 @@
 class Heap {
-  constructor(compare = (a, b) => a > b) {
+  constructor(compare) {
     this.heap = []
     this.size = 0
-    this.compare = compare 
+    this.compare =
+      compare ||
+      function (a, b) {
+        return a - b > 0
+      }
   }
 
   insert(item) {
@@ -20,7 +24,7 @@ class Heap {
     return delItem
   }
 
- {
+  down(k) {
     let left = k * 2 + 1,
       right = k * 2 + 2,
       largest = k
@@ -54,3 +58,41 @@ class Heap {
     this.heap[j] = tmp
   }
 }
+
+/**
+ * @param {number} k
+ * @param {number[]} nums
+ */
+var KthLargest = function (k, nums) {
+  this.heap = new Heap((a, b) => a - b < 0)
+  this.k = k
+  for (const num of nums) {
+    this.add(num)
+  }
+}
+
+/**
+ * @param {number} val
+ * @return {number}
+ */
+KthLargest.prototype.add = function (val) {
+  if (this.heap.size < this.k) {
+    this.heap.insert(val)
+  } else {
+    if (val > this.heap.heap[0]) {
+      this.heap.remove()
+      this.heap.insert(val)
+    }
+  }
+
+  return this.heap.heap[0]
+}
+
+var obj = new KthLargest(3, [4, 5, 8, 2])
+var param_1 = obj.add(3)
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * var obj = new KthLargest(k, nums)
+ * var param_1 = obj.add(val)
+ */
