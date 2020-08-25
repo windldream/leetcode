@@ -1,8 +1,8 @@
 class Heap {
-  constructor(compare = (a, b) => a > b) {
+  constructor(compare = (a, b) => a - b > 0) {
     this.heap = []
     this.size = 0
-    this.compare = compare 
+    this.compare = compare
   }
 
   insert(item) {
@@ -20,7 +20,7 @@ class Heap {
     return delItem
   }
 
- {
+  down(k) {
     let left = k * 2 + 1,
       right = k * 2 + 2,
       largest = k
