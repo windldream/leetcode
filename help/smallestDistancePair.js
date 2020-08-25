@@ -7,7 +7,7 @@ var smallestDistancePair = function (nums, k) {
   nums.sort((a, b) => a - b)
 
   let lo = 0
-  let hi = nums[nums.length - 1]
+  let hi = nums[nums.length - 1] - nums[0]
   while (lo < hi) {
     let mi = Math.floor((lo + hi) / 2)
     let count = 0
