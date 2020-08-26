@@ -5,16 +5,18 @@ class Heap {
     this.compare = compare
   }
 
+  size() {
+    return this.heap.length
+  }
+
   insert(item) {
     this.heap.push(item)
-    this.size += 1
-    this.up(this.size - 1)
+    this.up(this.size() - 1)
   }
 
   remove() {
     const delItem = this.heap[0]
-    this.swap(this.size - 1, 0)
-    this.size -= 1
+    this.swap(this.size() - 1, 0)
     this.heap.length -= 1
     this.down(0)
     return delItem
@@ -25,11 +27,11 @@ class Heap {
       right = k * 2 + 2,
       largest = k
 
-    if (left < this.size && this.compare(this.heap[left], this.heap[largest])) {
+    if (left < this.size() && this.compare(this.heap[left], this.heap[largest])) {
       largest = left
     }
 
-    if (right < this.size && this.compare(this.heap[right], this.heap[largest])) {
+    if (right < this.size() && this.compare(this.heap[right], this.heap[largest])) {
       largest = right
     }
 
