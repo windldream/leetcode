@@ -1,12 +1,15 @@
 class Heap {
   constructor(compare = (a, b) => a - b > 0) {
     this.heap = []
-    this.size = 0
     this.compare = compare
   }
 
   size() {
     return this.heap.length
+  }
+
+  top() {
+    return this.heap[0]
   }
 
   insert(item) {
