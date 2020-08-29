@@ -5,30 +5,30 @@
  */
 var findNumOfValidWords = function (words, puzzles) {
   const len = words.length
-  const bitMap = Array(len).fill(0)
+  const bitMap = new Map()
   for (let i = 0; i < len; i++) {
+    let k = 0
     for (const c of words[i]) {
-      bitMap[i] |= 1 << (c.charCodeAt() - 'a'.charCodeAt())
+      k |= 1 << (c.charCodeAt() - 'a'.charCodeAt())
     }
+    if (!bitMap.has(k)) {
+      bitMap.set(k, 0)
+    }
+    bitMap.set(k, bitMap.get(k) + 1)
   }
 
   const m = puzzles.length
-  const map = Array(m).fill(0)
-  for (let i = 0; i < m; i++) {
-    for (const c of puzzles[i]) {
-      map[i] |= 1 << (c.charCodeAt() - 'a'.charCodeAt())
-    }
-  }
-
   const res = Array(m).fill(0)
   for (let i = 0; i < m; i++) {
-    let count = 0
-    for (let j = 0; j < len; j++) {
-      if (words[j].includes(puzzles[i][0]) && (bitMap[j] & map[i]) === bitMap[j]) {
-        count++
+    let k = 0
+    for (const c of puzzles[i]) {
+      k |= 1 << (c.charCodeAt() - 'a'.charCodeAt())
+    }
+    for (let j = k; j; j = (j - 1) & k) {
+      if ((1 << (puzzles[i][0].charCodeAt() - 'a'.charCodeAt())) & j) {
+        res[i] += bitMap.get(j) || 0
       }
     }
-    res[i] = count
   }
   return res
 }
