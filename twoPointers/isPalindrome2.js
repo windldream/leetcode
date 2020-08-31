@@ -10,16 +10,16 @@
  * @return {boolean}
  */
 var isPalindrome = function (head) {
-  let str = ''
+  let arr = []
   while (head) {
-    str += head.val
+    arr.push(head.val)
     head = head.next
   }
 
   let l = 0
-  let r = str.length - 1
+  let r = arr.length - 1
   while (l < r) {
-    if (str[l++] !== str[r--]) return false
+    if (arr[l++] !== arr[r--]) return false
   }
   return true
 }
