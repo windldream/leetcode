@@ -16,13 +16,18 @@ var checkInclusion = function (s1, s2) {
   let r = 0
   let countMap = new Map()
   while (r < s2.length) {
+    if (!s1.includes(s2[r])) {
+      r++
+      l = r
+      countMap.clear()
+      continue
+    }
     if (!countMap.has(s2[r])) {
       countMap.set(s2[r], 0)
     }
     countMap.set(s2[r], countMap.get(s2[r]) + 1)
-    while ((!s1.includes(s2[l]) || countMap.get(s2[r]) > sMap.get(s2[r])) && l <= r) {
+    while (countMap.get(s2[l]) > sMap.get(s2[l]) && l <= r) {
       countMap.set(s2[l], countMap.get(s2[l]) - 1)
-      if (countMap.get(s2[l]) === 0) countMap.delete(s2[l])
       l++
     }
     if (isContain(sMap, countMap)) return true
@@ -39,4 +44,4 @@ var checkInclusion = function (s1, s2) {
   }
 }
 
-checkInclusion('adc', 'dcda')
+checkInclusion('ab', 'eidboaoo')
