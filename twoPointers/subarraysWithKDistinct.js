@@ -33,7 +33,9 @@ var subarraysWithKDistinct = function (A, K) {
       }
       l1++
     }
-    // 字串的结尾都是 r 所以 l1 和 l 之间肯定就只有一个不同的数
+    // 字串的结尾都是 r 并且刚好满足 l1和r之间不同的数为 K - 1
+    // 所以l1之前的数必定和l1不同 且刚好和r之间不同的数为 K - 1
+    // 故有 l1 - l 中组合
     ans += l1 - l
     r++
   }
