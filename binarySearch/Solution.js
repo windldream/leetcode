@@ -20,7 +20,7 @@ Solution.prototype.pickIndex = function () {
   let hi = this.w.length - 1
   while (lo < hi) {
     const mid = lo + ((hi - lo) >> 1)
-    if (this.sum[mid] < random) {
+    if (this.sum[mid] <= random) {
       lo = mid + 1
     } else {
       hi = mid
