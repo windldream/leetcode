@@ -5,17 +5,15 @@
  * @return {number[]}
  */
 var findClosestElements = function (arr, k, x) {
-  let l = 0
-  let r = arr.length - 1
-  let removeNum = arr.length - k
-  while (removeNum > 0) {
-    if (x - arr[l] <= arr[r] - x) {
-      r--
+  let lo = 0
+  let hi = arr.length - k
+  while (lo < hi) {
+    const mid = lo + ((hi - lo) >> 1)
+    if (x - arr[mid] > arr[mid + k] - x) {
+      lo = mid + 1
     } else {
-      l++
+      hi = mid
     }
-    removeNum--
   }
-
-  return arr.slice(l, l + k)
+  return arr.slice(lo, lo + k)
 }
