@@ -6,16 +6,20 @@
 var minEatingSpeed = function (piles, H) {
   const len = piles.length
   if (len === 1) return Math.ceil(piles / H)
-  piles.sort((a, b) => a - b)
 
   let lo = 1
-  let hi = piles[piles.length - 1]
+  let hi = 10 ** 9
 
   while (lo < hi) {
     const mid = lo + ((hi - lo) >> 1)
-    const less = piles.filter((pile) => pile <= mid)
-    const more = piles.slice(less.length).reduce((pre, cur) => pre + Math.ceil(cur / mid), 0)
-    if (less.length + more > H) {
+    const total = piles.reduce((pre, cur) => {
+      if (cur <= mid) {
+        pre + 1
+      } else {
+        pre + Math.ceil(cur / mid)
+      }
+    }, 0)
+    if (total > H) {
       lo = mid + 1
     } else {
       hi = mid
