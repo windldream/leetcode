@@ -17,13 +17,17 @@
  */
 var findSolution = function (customfunction, z) {
   const res = []
-  for (let i = 1; i <= 1000; i++) {
-    for (let j = 1; j <= 1000; j++) {
-      if (customfunction.f(i, j) === z) {
-        res.push([i, j])
-      } else if (customfunction.f(i, j) > z) {
-        break
-      }
+  let i = 1
+  let j = 1000
+  while (i <= 1000 && j >= 1) {
+    if (customfunction.f(i, j) === z) {
+      res.push([i, j])
+      i++
+      j--
+    } else if (customfunction.f(i, j) > z) {
+      j--
+    } else {
+      i++
     }
   }
   return res
