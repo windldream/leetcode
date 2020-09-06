@@ -2,7 +2,7 @@
  * Initialize your data structure here.
  */
 var TimeMap = function () {
-  this.m = new Map()
+  this.map = new Map()
 }
 
 /**
@@ -12,18 +12,15 @@ var TimeMap = function () {
  * @return {void}
  */
 TimeMap.prototype.set = function (key, value, timestamp) {
-  const m = this.m
-
-  if (!m.has(key)) {
-    m.set(key, {
-      t: [],
-      v: []
+  if (!this.map.has(key)) {
+    this.map.set(key, {
+      v: [],
+      t: []
     })
   }
-
-  const u = m.get(key)
-  u.t.push(timestamp)
-  u.v.push(value)
+  const obj = this.map.get(key)
+  obj.t.push(timestamp)
+  obj.v.push(value)
 }
 
 /**
@@ -32,31 +29,22 @@ TimeMap.prototype.set = function (key, value, timestamp) {
  * @return {string}
  */
 TimeMap.prototype.get = function (key, timestamp) {
-  // 找最大的 小于等于 timestamp
-  const u = this.m.get(key)
-  if (!u) {
+  if (!this.map.has(key)) {
     return ''
-  }
-
-  const { t, v } = u
-  let l = 0
-  let r = t.length - 1
-
-  while (l <= r) {
-    const m = Math.ceil((l + r) / 2)
-
-    if (t[m] > timestamp) {
-      r = m - 1
-    } else {
-      if (l === r) {
-        return v[l]
-      } else {
-        l = m
-      }
+  } else {
+    const { t, v } = this.map.get(key)
+    const index = t.indexOf(timestamp)
+    if (index > -1) {
+      return v[index]
     }
+    let i = t.findIndex((time) => time > timestamp)
+    if (t[i] > timestamp) {
+      i--
+    } else if (i === -1) {
+      i = t.length - 1
+    }
+    return t[i] <= timestamp ? v[i] : ''
   }
-
-  return ''
 }
 
 /**
