@@ -4,14 +4,8 @@
  * @return {number}
  */
 var shipWithinDays = function (weights, D) {
-  const len = weights.length
-  const sum = Array(len).fill(0)
-  for (let i = 0; i < len; i++) {
-    sum[i + 1] = sum[i] + weights[i]
-  }
-
   let lo = 0
-  let hi = sum[len] - sum[0]
+  let hi = weights.reduce((pre, cur) => pre + cur, 0)
   const max = Math.max.apply(null, weights)
   while (lo < hi) {
     const mid = lo + ((hi - lo) >> 1)
