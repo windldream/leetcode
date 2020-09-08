@@ -3,17 +3,11 @@
  * @return {number}
  */
 var findMagicIndex = function (nums) {
-  return search(nums, 0, nums.length - 1)
-
-  function search(nums, l, r) {
-    if (l > r) return -1
-    const mid = l + ((r - l) >> 1)
-    const left = search(nums, l, mid - 1)
-    if (left !== -1) {
-      return left
-    } else if (nums[mid] === mid) {
-      return mid
+  for (let i = 0; i < nums.length; ) {
+    if (i === nums[i]) {
+      return i
     }
-    return search(nums, mid + 1, r)
+    i = Math.max(nums[i], i + 1)
   }
+  return -1
 }
