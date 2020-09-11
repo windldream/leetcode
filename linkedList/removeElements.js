@@ -12,6 +12,13 @@
  */
 var removeElements = function (head, val) {
   if (head === null) return head
-  head.next = removeElements(head.next, val)
+  let cur = head
+  while (cur && cur.next) {
+    if (cur.next.val === val) {
+      cur.next = cur.next.next
+    } else {
+      cur = cur.next
+    }
+  }
   return head.val === val ? head.next : head
 }
