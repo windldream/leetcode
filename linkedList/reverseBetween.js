@@ -12,32 +12,18 @@
  * @return {ListNode}
  */
 var reverseBetween = function (head, m, n) {
-  let count = 0
-  let cur = head
-  const arr = []
-  while (cur) {
-    count++
-    if (count >= m && count <= n) {
-      arr.push(cur.val)
-    }
-    cur = cur.next
+  const dummy = new ListNode()
+  dummy.next = head
+  let pre = dummy
+  for (let i = 1; i < m; i++) {
+    pre = pre.next
   }
-
-  arr.reverse()
-  const pre = new ListNode()
-  let tmp = pre
-  count = 0
-  cur = head
-  let i = 0
-  while (cur) {
-    count++
-    if (count >= m && count <= n) {
-      tmp.next = new ListNode(arr[i++])
-    } else {
-      tmp.next = new ListNode(cur.val)
-    }
-    tmp = tmp.next
-    cur = cur.next
+  head = pre.next
+  for (let i = m; i < n; i++) {
+    const nex = head.next
+    head.next = nex.next
+    nex.next = pre.next
+    pre.next = nex
   }
-  return pre.next
+  return dummy.next
 }
