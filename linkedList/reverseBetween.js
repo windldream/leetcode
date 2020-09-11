@@ -14,16 +14,21 @@
 var reverseBetween = function (head, m, n) {
   const dummy = new ListNode()
   dummy.next = head
-  let pre = dummy
+
+  let g = dummy
+  let p = dummy.next
   for (let i = 1; i < m; i++) {
-    pre = pre.next
+    g = g.next
+    p = p.next
   }
-  head = pre.next
+
   for (let i = m; i < n; i++) {
-    const nex = head.next
-    head.next = nex.next
-    nex.next = pre.next
-    pre.next = nex
+    // 先删除节点
+    // 然后再插入节点
+    const removed = p.next
+    p.next = p.next.next
+    removed.next = g.next
+    g.next = removed
   }
   return dummy.next
 }
