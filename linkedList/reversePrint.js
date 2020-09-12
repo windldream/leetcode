@@ -10,10 +10,19 @@
  * @return {number[]}
  */
 var reversePrint = function (head) {
-  const arr = []
-  while (head) {
-    arr.push(head.val)
-    head = head.next
+  let pre = null
+  let cur = head
+  while (cur) {
+    const nextNode = cur.next
+    cur.next = pre
+    pre = cur
+    cur = nextNode
   }
-  return arr.reverse()
+
+  const ans = []
+  while (pre) {
+    ans.push(pre.val)
+    pre = pre.next
+  }
+  return ans
 }
