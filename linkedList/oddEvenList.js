@@ -10,25 +10,19 @@
  * @return {ListNode}
  */
 var oddEvenList = function (head) {
-  const oddNodes = []
-  const evenNodes = []
-  let index = 1
-  let cur = head
-  while (cur) {
-    if (index & 1) {
-      oddNodes.push(cur.val)
-    } else {
-      evenNodes.push(cur.val)
-    }
-    cur = cur.next
-    index++
-  }
+  if (head === null || head.next === null) return head
 
-  const dummy = new ListNode()
-  let tmp = dummy
-  for (const val of [...oddNodes, ...evenNodes]) {
-    tmp.next = new ListNode(val)
-    tmp = tmp.next
+  let odd = head
+  let even = head.next
+  let tail = even
+  while (odd.next && tail.next) {
+    // 奇数节点移位
+    odd.next = tail.next
+    odd = odd.next
+    // 偶数节点移位
+    tail.next = odd.next
+    tail = tail.next
   }
-  return dummy.next
+  odd.next = even
+  return head
 }
