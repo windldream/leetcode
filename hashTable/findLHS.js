@@ -3,18 +3,19 @@
  * @return {number}
  */
 var findLHS = function (nums) {
-  nums.sort((a, b) => a - b)
-  let l = 0
-  let r = 0
+  const map = new Map()
+  for (const num of nums) {
+    if (!map.has(num)) {
+      map.set(num, 0)
+    }
+    map.set(num, map.get(num) + 1)
+  }
+
   let ans = 0
-  while (r < nums.length) {
-    while (nums[r] - nums[l] > 1) {
-      l++
+  for (const num of map.keys()) {
+    if (map.has(num + 1)) {
+      ans = Math.max(ans, map.get(num) + map.get(num + 1))
     }
-    if (nums[r] - nums[l] === 1) {
-      ans = Math.max(ans, r - l + 1)
-    }
-    r++
   }
   return ans
 }
