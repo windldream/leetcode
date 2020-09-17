@@ -3,23 +3,16 @@
  * @return {number[]}
  */
 var smallerNumbersThanCurrent = function (nums) {
-  const map = new Map()
+  const arr = Array(101).fill(0)
   for (const num of nums) {
-    if (!map.has(num)) {
-      map.set(num, 0)
-    }
-    map.set(num, map.get(num) + 1)
+    arr[num] += 1
+  }
+  for (let i = 1; i < arr.length; i++) {
+    arr[i] += arr[i - 1]
   }
 
-  const res = []
-  for (const num of nums) {
-    let count = 0
-    for (const [key, val] of map) {
-      if (key < num) {
-        count += val
-      }
-    }
-    res.push(count)
+  for (let i = 0; i < nums.length; i++) {
+    nums[i] = nums[i] !== 0 ? arr[nums[i] - 1] : 0
   }
-  return res
+  return nums
 }
