@@ -3,15 +3,12 @@
  * @return {number}
  */
 var tribonacci = function (n) {
-  const memo = new Map()
-  return recursion(n)
+  return recursion(n, 0, 1, 1)
 
-  function recursion(n) {
-    if (n === 0) return 0
-    if (n <= 2) return 1
-    if (memo.has(n)) return memo.get(n)
-    const val = recursion(n - 3) + recursion(n - 2) + recursion(n - 1)
-    memo.set(n, val)
-    return val
+  function recursion(n, n1, n2, n3) {
+    if (n === 0) return n1
+    if (n === 1) return n2
+    if (n === 2) return n3
+    return recursion(n - 1, n2, n3, n1 + n2 + n3)
   }
 }
