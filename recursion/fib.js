@@ -3,16 +3,9 @@
  * @return {number}
  */
 var fib = function (n) {
-  const memo = new Map()
-  const mod = 10 ** 9 + 7
-  return recursion(n)
-
-  function recursion(n) {
-    if (n === 0) return 0
-    if (n <= 2) return 1
-    if (memo.has(n)) return memo.get(n)
-    const val = (recursion(n - 2) + recursion(n - 1)) % mod
-    memo.set(n, val)
-    return val
+  return helper(n, 0, 1)
+  function helper(n, n1, n2) {
+    if (n === 0) return n1
+    return helper(n - 1, n2, (n2 + n1) % (10 ** 9 + 7))
   }
 }
