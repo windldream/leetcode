@@ -8,26 +8,21 @@ var numPoints = function (points, r) {
   let ans = 0
   for (let i = 0; i < len; i++) {
     for (let j = 0; j < len; j++) {
+      let count = 0
+      let center
       if (i === j) {
-        let count = 0
-        for (let k = 0; k < len; k++) {
-          if (getDis(points[i][0], points[i][1], points[k][0], points[k][1]) <= r) {
-            count++
-          }
-        }
-        ans = Math.max(ans, count)
+        center = points[i]
       } else {
         const dis = getDis(points[i][0], points[i][1], points[i][0], points[i][1])
         if (dis / 2 > r) continue
-        const res = calculateCenter(points[i], points[j], r)
-        let count = 0
-        for (let k = 0; k < len; k++) {
-          if (getDis(res[0], res[1], points[k][0], points[k][1]) <= r) {
-            count++
-          }
-        }
-        ans = Math.max(ans, count)
+        center = calculateCenter(points[i], points[j], r)
       }
+      for (let k = 0; k < len; k++) {
+        if (getDis(center[0], center[1], points[k][0], points[k][1]) <= r) {
+          count++
+        }
+      }
+      ans = Math.max(ans, count)
     }
   }
 
@@ -38,18 +33,20 @@ var numPoints = function (points, r) {
   }
 
   function calculateCenter(a, b, r) {
-    const midX = (a[0] + b[0]) / 2
-    const midY = (a[1] + b[1]) / 2
-    const dis = getDis(a[0], a[1], midX, midY)
+    // 计算a,b中点坐标
+    const mid = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+    // 计算a到ab中点的距离
+    const dis = getDis(a[0], a[1], mid[0], mid[1])
+    // 垂线距离
     const h = Math.sqrt(r * r - dis * dis)
-    const verticalX = b[0] - a[0]
-    const verticalY = b[1] - a[1]
-    const hd = [-verticalY, verticalX]
+    // 向量ab
+    const vertical = [b[0] - a[0], b[1] - a[1]]
+    // 向量ab的垂线
+    const hd = [-vertical[1], vertical[0]]
+    // 向量ab垂线的长度
     const len = Math.sqrt(hd[0] ** 2 + hd[1] ** 2)
-    hd[0] = hd[0] / len
-    hd[1] = hd[1] / len
-    hd[0] = hd[0] * h
-    hd[1] = hd[1] * h
-    return [hd[0] + midX, hd[1] + midY]
+    hd[0] = (hd[0] / len) * h
+    hd[1] = (hd[1] / len) * h
+    return [hd[0] + mid[0], hd[1] + mid[1]]
   }
 }
