@@ -16,11 +16,8 @@ var canArrange = function (arr, k) {
   }
 
   arr = arr.filter((val) => val).sort((a, b) => a - b)
-  if (arr.length % 2 > 0) return false
-
   let l = 0
   let r = arr.length - 1
-
   while (l < r) {
     if (arr[l] + arr[r] !== k) return false
     l++
