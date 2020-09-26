@@ -7,33 +7,27 @@ var minDays = function (grid) {
   const n = grid[0].length
   const islands = []
   const seen = new Set()
-  const firsts = []
-  const seconds = []
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
       if (grid[i][j] === 1) {
-        if (firsts.length === 0) {
-          firsts.push(i, j)
-        } else if (seconds.length === 0) {
-          seconds.push(i, j)
-        }
         islands.push([i, j])
       }
     }
   }
 
-  search(firsts[0], firsts[1], seen)
+  if (islands.length === 0) return 0
+  search(islands[0][0], islands[0][1], seen)
   if (seen.size < islands.length) return 0
-  if (seconds.length === 0) return 1
+  if (islands.length === 1) return 1
   seen.clear()
   for (let i = 0; i < islands.length; i++) {
     const row = islands[i][0]
     const col = islands[i][1]
     grid[row][col] = 0
     if (i === 0) {
-      search(seconds[0], seconds[1], seen)
+      search(islands[1][0], islands[1][1], seen)
     } else {
-      search(firsts[0], firsts[1], seen)
+      search(islands[0][0], islands[0][1], seen)
     }
     if (seen.size < islands.length - 1) {
       return 1
