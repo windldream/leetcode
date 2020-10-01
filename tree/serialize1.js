@@ -13,19 +13,23 @@
  * @return {string}
  */
 var serialize = function (root) {
+  if (root === null) return JSON.stringify([])
   const ans = []
-  dfs(root)
-  return JSON.stringify(ans)
-
-  function dfs(root) {
-    if (root === null) {
-      ans.push(null)
-      return
+  const queue = []
+  queue.push(root)
+  while (queue.length) {
+    let len = queue.length
+    while (len > 0) {
+      const node = queue.shift()
+      ans.push(node && node.val)
+      if (node !== null) {
+        queue.push(node.left)
+        queue.push(node.right)
+      }
+      len--
     }
-    ans.push(root.val)
-    dfs(root.left)
-    dfs(root.right)
   }
+  return JSON.stringify(ans)
 }
 
 /**
@@ -37,16 +41,24 @@ var serialize = function (root) {
 var deserialize = function (data) {
   data = JSON.parse(data)
   if (data.length === 0) return null
-  return rebuild(data)
-
-  function rebuild(data) {
-    const node = data.shift()
-    if (node === null) return null
-    const root = new TreeNode(node)
-    root.left = rebuild(data)
-    root.right = rebuild(data)
-    return root
+  const root = new TreeNode(data[0])
+  const queue = []
+  queue.push(root)
+  let i = 1
+  while (queue.length) {
+    const node = queue.shift()
+    if (data[i] !== null) {
+      node.left = new TreeNode(data[i])
+      queue.push(node.left)
+    }
+    i++
+    if (data[i] !== null) {
+      node.right = new TreeNode(data[i])
+      queue.push(node.right)
+    }
+    i++
   }
+  return root
 }
 
 /**
