@@ -13,16 +13,12 @@ var findTheCity = function (n, edges, distanceThreshold) {
     cost[v][u] = w
   }
 
-  const gCity = []
-  for (let i = 0; i < n; i++) {
-    gCity[i] = dijkstra(cost, i).filter((val) => val <= distanceThreshold)
-  }
-
   let min = Infinity
   let ans = -1
   for (let i = n - 1; i >= 0; i--) {
-    if (gCity[i].length < min) {
-      min = gCity[i].length
+    const count = dijkstra(cost, i).filter((val) => val <= distanceThreshold).length
+    if (count < min) {
+      min = count
       ans = i
     }
   }
@@ -61,16 +57,3 @@ var findTheCity = function (n, edges, distanceThreshold) {
     return minIndex
   }
 }
-
-findTheCity(
-  5,
-  [
-    [0, 1, 2],
-    [0, 4, 8],
-    [1, 2, 3],
-    [1, 4, 2],
-    [2, 3, 1],
-    [3, 4, 1]
-  ],
-  2
-)
