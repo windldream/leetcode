@@ -5,6 +5,7 @@
  * @return {number}
  */
 var minNumberOfSemesters = function (n, dependencies, k) {
+  // pre[i] 表示修习第i门课之后能修习哪些课
   const pre = Array(n).fill(0)
   for (let [u, v] of dependencies) {
     pre[--u] |= 1 << --v
@@ -20,6 +21,7 @@ var minNumberOfSemesters = function (n, dependencies, k) {
         next |= 1 << i
       }
     }
+    // 去重
     next &= ~state
     for (let sub = next; sub > 0; sub = (sub - 1) & next) {
       if (countBit(sub) <= k) {
