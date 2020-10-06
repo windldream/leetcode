@@ -7,12 +7,19 @@ var RecentCounter = function () {
  * @return {number}
  */
 RecentCounter.prototype.ping = function (t) {
-  this.queue.push(t)
-  let ans = 0
-  for (let i = 0; i < this.queue.length; i++) {
-    if (this.queue[i] >= t - 3000 && this.queue[i] <= t) ans++
+  const queue = this.queue
+  queue.push(t)
+  let l = 0
+  let r = queue.length
+  while (l < r) {
+    const mid = (l + r) >> 1
+    if (queue[mid] < t - 3000) {
+      l = mid + 1
+    } else if (queue[mid] >= t - 3000) {
+      r = mid
+    }
   }
-  return ans
+  return queue.length - l
 }
 
 /**
