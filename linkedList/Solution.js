@@ -11,13 +11,7 @@
  * @param {ListNode} head
  */
 var Solution = function (head) {
-  const ans = []
-  let node = head
-  while (node) {
-    ans.push(node.val)
-    node = node.next
-  }
-  this.list = ans
+  this.head = head
 }
 
 /**
@@ -25,8 +19,17 @@ var Solution = function (head) {
  * @return {number}
  */
 Solution.prototype.getRandom = function () {
-  const random = Math.floor(Math.random() * this.list.length)
-  return this.list[random]
+  let head = this.head
+  let val = head.val
+  let count = 1
+  while (head) {
+    if (Math.floor(Math.random() * count) === 0) {
+      val = head.val
+    }
+    head = head.next
+    count++
+  }
+  return val
 }
 
 /**
