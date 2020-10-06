@@ -2,14 +2,7 @@
  * @param {number[]} nums
  */
 var Solution = function (nums) {
-  const map = new Map()
-  nums.forEach((num, index) => {
-    if (!map.has(num)) {
-      map.set(num, [])
-    }
-    map.get(num).push(index)
-  })
-  this.map = map
+  this.nums = nums
 }
 
 /**
@@ -17,8 +10,17 @@ var Solution = function (nums) {
  * @return {number}
  */
 Solution.prototype.pick = function (target) {
-  const list = this.map.get(target)
-  return list[Math.floor(Math.random() * list.length)]
+  let ans = null
+  let count = 1
+  for (let i = 0; i < this.nums.length; i++) {
+    if (this.nums[i] === target) {
+      if (Math.floor(Math.random() * count) === 0) {
+        ans = i
+      }
+      count++
+    }
+  }
+  return ans
 }
 
 /**
