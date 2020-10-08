@@ -13,8 +13,7 @@ var numberOfArrays = function (s, k) {
     for (let j = i - 1; j >= 0 && i - j < 10; j--) {
       const str = s.substring(j, i)
       if (str[0] === '0') continue
-      const num = +str
-      if (num > k) break
+      if (str > k) break
       dp[i] = (dp[i] + dp[j]) % mod
     }
   }
