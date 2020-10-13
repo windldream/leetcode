@@ -14,6 +14,7 @@ var getLengthOfOptimalCompression = function (s, k) {
     for (let j = 0; j <= Math.min(k, i); j++) {
       // 删除第 i 个字符
       if (j < k) dp[i][j + 1] = Math.min(dp[i][j + 1], dp[i - 1][j])
+      // 保留第 i 个字符
       let same = 0
       let del = 0
       for (let m = i; m <= n; m++) {
