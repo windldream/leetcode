@@ -15,7 +15,7 @@ var fullJustify = function (words, maxWidth) {
       while (count < maxWidth) {
         if (temp.length === 1) {
           temp[0] += ' '.repeat(maxWidth - count)
-          break
+          count = maxWidth
         } else {
           for (let i = 1; i < temp.length && count < maxWidth; i++) {
             temp[i] = ' ' + temp[i]
