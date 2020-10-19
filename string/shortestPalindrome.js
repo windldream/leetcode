@@ -11,13 +11,7 @@ var shortestPalindrome = function (s) {
   for (; i < len; i++) {
     if (s.substring(0, len - i) === palindrome.substring(i)) break
   }
-  return (
-    s
-      .substring(len - i)
-      .split('')
-      .reverse()
-      .join('') + s
-  )
+  return palindrome.substring(0, i) + s
 }
 
 shortestPalindrome('aacecaaa')
