@@ -6,7 +6,6 @@
  * @return {string}
  */
 var findReplaceString = function (S, indexes, sources, targets) {
-  const str = S
   const len = indexes.length
   const list = []
   for (let i = 0; i < len; i++) {
