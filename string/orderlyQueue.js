@@ -8,13 +8,12 @@ var orderlyQueue = function (S, K) {
     return S.split('').sort().join('')
   }
   const len = S.length
-  const ans = []
+  let ans = S
   let str = S
   while (true) {
-    if (ans.includes(str)) break
-    ans.push(str)
     str = str.substring(1) + str[0]
+    ans = str < ans ? str : ans
+    if (str === S) break
   }
-  ans.sort()
-  return ans[0]
+  return ans
 }
