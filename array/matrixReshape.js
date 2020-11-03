@@ -7,7 +7,7 @@
 var matrixReshape = function (nums, r, c) {
   const m = nums.length
   const n = nums[0].length
-  if (m * n < r * c || (m === r && n === c)) return nums
+  if (m * n !== r * c || (m === r && n === c)) return nums
 
   const ans = Array(r)
     .fill(0)
