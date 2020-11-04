@@ -3,29 +3,19 @@
  * @return {number}
  */
 var maxChunksToSorted = function (arr) {
-  const len = arr.length
-  const maxArr = Array(len).fill(0)
-  const minArr = Array(len).fill(0)
-
-  let max = -Infinity
-  for (let i = 0; i < len; i++) {
-    max = Math.max(max, arr[i])
-    maxArr[i] = max
-  }
-
-  let min = Infinity
-  for (let i = len - 1; i >= 0; i--) {
-    min = Math.min(min, arr[i])
-    minArr[i] = min
-  }
-
-  let ans = 0
-  for (let i = 0; i < len; i++) {
-    if (i === len - 1 || maxArr[i] <= minArr[i + 1]) {
-      ans++
+  const stack = []
+  for (const num of arr) {
+    if (stack.length && num < stack[stack.length - 1]) {
+      const head = stack.pop()
+      while (stack.length && num < stack[stack.length - 1]) {
+        stack.pop()
+      }
+      stack.push(head)
+    } else {
+      stack.push(num)
     }
   }
-  return ans
+  return stack.length
 }
 
-maxChunksToSorted([5, 1, 1, 8, 1, 6, 5, 9, 7, 8])
+maxChunksToSorted([1, 1, 2, 1, 1, 3, 4, 5, 1, 6])
