@@ -3,13 +3,21 @@
  * @return {number}
  */
 var maxWidthRamp = function (A) {
-  const len = A.length
+  const stack = []
+  for (let i = 0; i < A.length; i++) {
+    if (stack.length === 0 || A[stack[stack.length - 1]] > A[i]) {
+      stack.push(i)
+    }
+  }
+
   let ans = 0
-  for (let i = 0; i < len; i++) {
-    if (len - 1 - i < ans) break
-    for (let j = len - 1; j > i; j--) {
-      if (A[j] >= A[i]) ans = Math.max(ans, j - i)
+  for (let i = A.length - 1; i >= 0; i--) {
+    while (stack.length && A[stack[stack.length - 1]] <= A[i]) {
+      const cur = stack.pop()
+      ans = Math.max(ans, i - cur)
     }
   }
   return ans
 }
+
+maxWidthRamp([2, 4, 1, 3])
