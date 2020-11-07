@@ -18,11 +18,11 @@ var minFlipsMonoIncr = function (S) {
     right[i] = total
   }
 
-  let ans = Infinity
+  let ans = len - left[len - 1]
   for (let i = 0; i < len; i++) {
     ans = Math.min(ans, left[i] + right[i + 1])
   }
-  return Math.min(ans, len - left[len - 1])
+  return ans
 }
 
 minFlipsMonoIncr('11011')
