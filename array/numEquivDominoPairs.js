@@ -3,14 +3,20 @@
  * @return {number}
  */
 var numEquivDominoPairs = function (dominoes) {
-  const len = dominoes.length
   let ans = 0
-  for (let i = 0; i < len; i++) {
-    const [a, b] = dominoes[i]
-    for (let j = i + 1; j < len; j++) {
-      const [c, d] = dominoes[j]
-      if ((a === c && b === d) || (a === d && b === c)) ans++
-    }
+  const arr = Array(100).fill(0)
+  for (const array of dominoes) {
+    array.sort()
+    ans += arr[array[0] * 10 + array[1]]
+    arr[array[0] * 10 + array[1]] += 1
   }
   return ans
 }
+
+numEquivDominoPairs([
+  [1, 2],
+  [1, 2],
+  [1, 1],
+  [1, 2],
+  [2, 2]
+])
