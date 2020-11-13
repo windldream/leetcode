@@ -5,7 +5,6 @@
  */
 var getValidT9Words = function (num, words) {
   const nums = ['abc', 'def', 'ghi', 'jkl', 'mno', 'pqrs', 'tuv', 'wxyz']
-  const ans = []
   for (let i = 0; i < num.length; i++) {
     const chars = nums[num[i] - 2]
     words = words.filter((word) => {
