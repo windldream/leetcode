@@ -31,4 +31,4 @@ var isNumber = function (s) {
   return numberSeen && numberAfterE
 }
 
-isNumber('1')
+isNumber('-1E-16')
