@@ -3,17 +3,18 @@
  * @return {boolean}
  */
 var increasingTriplet = function (nums) {
-  const len = nums.length
-  const dp = Array(len).fill(1)
-  for (let i = 0; i < len; i++) {
-    for (let j = i - 1; j >= 0; j--) {
-      if (nums[j] < nums[i]) {
-        dp[i] = Math.max(dp[i], dp[j] + 1)
-        if (dp[i] >= 3) return true
-      }
+  let a = Infinity
+  let b = Infinity
+  for (const num of nums) {
+    if (num <= a) {
+      a = num
+    } else if (num <= b) {
+      b = num
+    } else {
+      return true
     }
   }
   return false
 }
 
-increasingTriplet([1, 2, 3, 4, 5])
+increasingTriplet([5, 6, 1, 7])
