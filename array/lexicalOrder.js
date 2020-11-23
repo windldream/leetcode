@@ -3,8 +3,16 @@
  * @return {number[]}
  */
 var lexicalOrder = function (n) {
-  const ans = Array(n)
-    .fill(0)
-    .map((val, index) => index + 1)
-  return ans.sort()
+  const ans = []
+  dfs(ans, 0, n)
+  return ans
+
+  function dfs(ans, curVal, maxNum) {
+    if (curVal > maxNum) return
+    if (curVal !== 0) ans.push(curVal)
+    for (let i = 0; i <= 9; i++) {
+      if (curVal === 0 && i === 0) continue
+      dfs(ans, curVal * 10 + i, maxNum)
+    }
+  }
 }
