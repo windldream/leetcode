@@ -4,8 +4,8 @@
  */
 var minimumEffort = function (tasks) {
   tasks.sort((a, b) => a[0] - a[1] - (b[0] - b[1]))
-  let sum = 0
   let ans = 0
+  let sum = 0
   for (const task of tasks) {
     ans = Math.max(ans, sum + task[1])
     sum += task[0]
