@@ -22,7 +22,10 @@ var closestValue = function (root, target) {
       diff = Math.abs(root.val - target)
       ans = root.val
     }
-    inorder(root.left)
-    inorder(root.right)
+    if (root.val > target) {
+      inorder(root.left)
+    } else {
+      inorder(root.right)
+    }
   }
 }
