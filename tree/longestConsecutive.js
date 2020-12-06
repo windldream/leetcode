@@ -17,12 +17,14 @@ var longestConsecutive = function (root) {
 
   function preorder(root, parent, prev) {
     if (root === null) return
-    let cur = prev
+    let continuous = false
     if (parent === null || root.val === parent.val + 1) {
-      cur++
-      ans = Math.max(ans, cur)
+      prev++
+      continuous = true
+      ans = Math.max(ans, prev)
     }
-    preorder(root.left, root, cur - prev === 1 ? cur : 1)
-    preorder(root.right, root, cur - prev === 1 ? cur : 1)
+    prev = continuous ? prev : 1
+    preorder(root.left, root, prev)
+    preorder(root.right, root, prev)
   }
 }
