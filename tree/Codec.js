@@ -29,9 +29,6 @@ class Codec {
         for (let i = 0; i < node.children.length; i++) {
           const children = node.children[i]
           encode(children)
-          if (i === node.children.length - 1) {
-            ans = ans.substring(0, ans.length - 1)
-          }
         }
         ans += ' ] '
       }
