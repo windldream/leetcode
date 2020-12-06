@@ -12,26 +12,24 @@
  * @return {Node}
  */
 var treeToDoublyList = function (root) {
-  const arr = []
-  inorder(root)
-  const head = new Node()
-  let cur = head
-  for (let i = 0; i < arr.length; i++) {
-    const node = new Node(arr[i])
-    cur.right = node
-    node.left = cur
-    cur = cur.right
-    if (i === arr.length - 1) {
-      node.right = head.right
-      head.right.left = node
+  if (root === null) return root
+
+  let pre = new Node()
+  const ans = pre
+  const stack = []
+  while (root !== null || stack.length) {
+    if (root !== null) {
+      stack.push(root)
+      root = root.left
+    } else {
+      root = stack.pop()
+      pre.right = root
+      root.left = pre
+      pre = root
+      root = root.right
     }
   }
-  return head.right
-
-  function inorder(root) {
-    if (root === null) return
-    inorder(root.left)
-    arr.push(root.val)
-    inorder(root.right)
-  }
+  pre.right = ans.right
+  ans.right.left = pre
+  return ans.right
 }
