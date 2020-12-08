@@ -33,7 +33,7 @@ var findClosestLeaf = function (root, k) {
           list.add(v)
         }
       }
-      if (list.size === 0 && !g.has(node)) {
+      if (!g.has(node)) {
         return node
       }
       queue.push(...list)
