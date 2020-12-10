@@ -14,24 +14,15 @@ var cloneTree = function (root) {
   if (root === null) return null
   const map = new Map()
   dfs(root)
-  build(root)
   return map.get(root)
 
-  function build(root) {
-    if (root === null) return
-    const node = map.get(root)
-    for (const child of root.children) {
-      node.children.push(map.get(child))
-      build(child)
-    }
-  }
-
   function dfs(root) {
-    if (root === null) return
+    if (root === null) return null
     const copy = new Node(root.val)
-    map.set(root, copy)
     for (const child of root.children) {
-      dfs(child)
+      copy.children.push(dfs(child))
     }
+    map.set(root, copy)
+    return copy
   }
 }
