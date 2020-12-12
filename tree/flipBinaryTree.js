@@ -18,7 +18,7 @@ var flipBinaryTree = function (root, leaf) {
   leaf.left = leaf.parent
   leaf.parent = null
   while (cur.left !== root) {
-    if (cur.left.left) {
+    if (cur.left.right === cur) {
       cur.left.right = cur.left.left
     }
     cur.left.left = cur.left.parent
