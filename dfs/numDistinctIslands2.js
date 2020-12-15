@@ -34,6 +34,7 @@ var numDistinctIslands2 = function (grid) {
     const xs = Array(len).fill(0)
     const ys = Array(len).fill(0)
 
+    // (x,y), (x,−y), (−x,y), (−x,−y), (y,x), (y,−x), (−y,x), (−y,−x)
     for (let c = 0; c < 8; c++) {
       let t = 0
       for (const z of shape) {
