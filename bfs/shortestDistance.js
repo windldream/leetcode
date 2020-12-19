@@ -42,6 +42,7 @@ const shortestDistance = function(grid) {
         if (grid[x][y] === 1) {
           count++
           sum += dis
+          if (count === buildings) return sum
           continue
         }
         for (const [dx, dy] of dirs) {
