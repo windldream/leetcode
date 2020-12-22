@@ -35,7 +35,7 @@ ValidWordAbbr.prototype.isUnique = function(word) {
   if (!this.wordMap.has(str)) return true
   if (this.wordMap.has(str)) {
     const list = this.wordMap.get(str)
-    if (list.size === 1 && [...list.values()][0] === word) return true
+    if (list.size === 1 && list.has(word)) return true
   }
   return false
 };
