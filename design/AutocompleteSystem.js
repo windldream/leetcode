@@ -35,7 +35,6 @@ AutocompleteSystem.prototype.input = function(c) {
   })
 
   if (ans.length <= 3) {
-    this.keys = ans
     return ans
   }
   return ans.slice(0, 3)
