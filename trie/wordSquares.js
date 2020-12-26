@@ -7,8 +7,7 @@ const wordSquares = function(words) {
   const prefixHashTable = buildPrefixHashTable(words)
   const n = words[0].length
   for (const word of words) {
-    const wordSquares = []
-    wordSquares.push(word)
+    const wordSquares = [word]
     backtracking(1, wordSquares)
   }
   return ans
