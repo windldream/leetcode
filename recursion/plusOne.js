@@ -27,7 +27,7 @@ const plusOne = function(head) {
     let carry = 1
     let ans = ''
     while (n >= 0 || carry) {
-      let sum =( n >= 0 ? +str[n] : 0) + carry
+      let sum = (n >= 0 ? +str[n] : 0) + carry
       if (sum >= 10) {
         sum = sum - 10
         carry = 1
