@@ -33,9 +33,14 @@ const strobogrammaticInRange = function(low, high) {
 
   let ans = 0
   for (let i = m; i <= n; i++) {
-    if (i === m || i === n) {
+    if (i === m) {
       for (const str of dp[i]) {
         if (BigInt(str) >= BigInt(low) && BigInt(str) <= BigInt(high)) ans++
+      }
+    } else if (i === n) {
+      for (const str of dp[i]) {
+        if (BigInt(str) >= BigInt(low) && BigInt(str) <= BigInt(high)) ans++
+        else break
       }
     } else {
       ans += dp[i].length
