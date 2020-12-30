@@ -8,11 +8,15 @@
 const dietPlanPerformance = function(calories, k, lower, upper) {
   const len = calories.length
   let ans = 0
-  for (let i = 0; i < len - k + 1; i++) {
-    let sum = 0
-    for (let j = 0; j < k && i + j < len; j++) {
-      sum += calories[i + j]
-    }
+  let sum = 0
+  for (let i = 0; i < k; i++) {
+    sum += calories[i]
+  }
+  if (sum > upper) ans++
+  else if (sum < lower) ans--
+  for (let i = k; i < len; i++) {
+    sum -= calories[i - k]
+    sum += calories[i]
     if (sum > upper) ans++
     else if (sum < lower) ans--
   }
