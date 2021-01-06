@@ -40,10 +40,7 @@ const maxFont = function(text, w, h, fonts, fontInfo) {
     }
   }
 
-  const [width, height] = getWidthAndHeight(text, fontInfo, fonts[lo])
-  if (width > w || height > h || lo > hi) lo--
-  if (lo === -1) return -1
-  return fonts[lo]
+  return hi >= 0 ? fonts[hi] : -1
 
   function getWidthAndHeight(text, fontInfo, fontSize) {
     let w = 0
