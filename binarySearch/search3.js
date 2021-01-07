@@ -31,5 +31,5 @@ const search = function (reader, target) {
     }
   }
 
-  return reader.get(lo) === target ? lo : -1
+  return -1
 };
