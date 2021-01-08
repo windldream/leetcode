@@ -13,7 +13,7 @@ const wordsTyping = function(sentence, rows, cols) {
     let ptr = i
     let cur = cols
     while (cur >= sentence[ptr].length) {
-      cur -= sentence[ptr].length
+      cur -= sentence[ptr].length + 1
       ptr++
       if (ptr === sentence.length) {
         count++
