@@ -25,8 +25,9 @@ const numWays = function (words, target) {
   for (let i = 1; i < n; i++) {
     dp[i][0] = (dp[i - 1][0] + maps[i][firstIndex]) % mod
     for (let j = 1; j < m; j++) {
-      const count = maps[i][getIndex(target[j], 'a')]
-      dp[i][j] = (dp[i - 1][j] + ((count * dp[i - 1][j - 1]) % mod)) % mod
+      const index = getIndex(target[j], 'a')
+      const count = maps[i][index]
+      dp[i][j] = (dp[i - 1][j] + ((dp[i - 1][j - 1] * count) % mod)) % mod
     }
   }
   return dp[n - 1][m - 1]
