@@ -18,7 +18,7 @@ const bestTeamScore = function (scores, ages) {
   for (let i = 0; i < n; i++) {
     dp[i] = arr[i][0]
     for (let j = 0; j < i; j++) {
-      if (arr[i][0] >= arr[j][0] || arr[i][1] === arr[j][1]) {
+      if (arr[i][0] >= arr[j][0]) {
         dp[i] = Math.max(dp[i], dp[j] + arr[i][0])
       }
     }
