@@ -3,15 +3,20 @@
  * @return {number}
  */
 const totalMoney = function(n) {
-  const dp = Array(n + 1).fill(0)
+  let a = 0
+  let b = 0
   let ans = 0
   for (let i = 1; i <= n; i++) {
     if (i % 7 === 1) {
-      dp[i] = (i > 7 ? dp[i - 7] : 0) + 1
+      a = a + 1
+      ans += a
+    } else if (i % 7 === 2) {
+      b = a + 1
+      ans += b
     } else {
-      dp[i] = dp[i - 1] + 1
+      b = b + 1
+      ans += b
     }
-    ans += dp[i]
   }
   return ans
 };
