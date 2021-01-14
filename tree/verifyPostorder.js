@@ -3,17 +3,16 @@
  * @return {boolean}
  */
 const verifyPostorder = function (postorder) {
-  const len = postorder.length
-  const stack = []
-  let root = Infinity
-  for (let i = len - 1; i >= 0; i--) {
-    if (postorder[i] > root) return false
-    while (stack.length && postorder[i] < stack[stack.length - 1]) {
-      root = stack.pop()
-    }
-    stack.push(postorder[i])
+  return dfs(postorder, 0, postorder.length - 1)
+
+  function dfs(postorder, i, j) {
+    if (i >= j) return true
+    let p = i
+    while (postorder[p] < postorder[j]) p++
+    let m = p
+    while (postorder[p] > postorder[j]) p++
+    return p === j && dfs(postorder, i, m - 1) && dfs(postorder, m, j - 1)
   }
-  return true
 }
 
 verifyPostorder([1, 6, 3, 2, 5])
