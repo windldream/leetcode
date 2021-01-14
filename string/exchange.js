@@ -3,15 +3,14 @@
  * @return {number[]}
  */
 const exchange = function(nums) {
-  const odd = []
-  const even = []
-  for (const num of nums) {
-    if (num & 1) {
-      odd.push(num)
-    } else {
-      even.push(num)
+  let low = 0
+  let fast = 0
+  while (fast < nums.length) {
+    if (nums[fast] & 1) {
+      ;[nums[fast], nums[low]] = [nums[low], nums[fast]]
+      low++
     }
+    fast++
   }
-
-  return [...odd, ...even]
+  return nums
 };
