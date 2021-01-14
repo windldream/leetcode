@@ -11,20 +11,22 @@
  * @return {ListNode}
  */
 const swapNodes = function(head, k) {
-  const list = []
-  while (head) {
-    list.push(head.val)
-    head = head.next
+  let cur = head
+  let first = head
+  let last = head
+  let count = 1
+  while (cur.next) {
+    if (count < k) {
+      first = first.next
+    } else {
+      last = last.next
+    }
+    count += 1
+    cur = cur.next
   }
 
-  const len = list.length
-  ;[list[k - 1], list[len - k]] = [list[len - k], list[k - 1]]
-
-  const dummy = new ListNode()
-  let tmp = dummy
-  for (let i = 0; i < len; i++) {
-    tmp.next = new ListNode(list[i])
-    tmp = tmp.next
-  }
-  return dummy.next
+  const val = first.val
+  first.val = last.val
+  last.val = val
+  return head
 };
