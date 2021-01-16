@@ -7,7 +7,7 @@ const findContinuousSequence = function (target) {
   let l = 1
   let r = 1
   let sum = 0
-  while (r <= target >> 1) {
+  while (l <= target >> 1) {
     if (sum < target) {
       sum += r
       r++
@@ -16,7 +16,7 @@ const findContinuousSequence = function (target) {
       l++
     } else {
       const arr = []
-      for (let i = l; i <= r; i++) {
+      for (let i = l; i < r; i++) {
         arr.push(i)
       }
       ans.push(arr.slice())
