@@ -4,12 +4,15 @@
  */
 const wiggleSort = function(nums) {
   const len = nums.length
-  if (len < 3) return
-  nums.sort((a, b) => a - b)
-  for (let i = 0; i < len; i += 2) {
-    if (i + 1 < len) {
-      ;[nums[i], nums[i + 1]] = [nums[i + 1], nums[i]]
+  for (let i = 1; i < len; i++) {
+    if (i % 2 === 0) {
+      if (nums[i] < nums[i - 1]) {
+        ;[nums[i], nums[i - 1]] = [nums[i - 1], nums[i]]
+      }
+    } else {
+      if (nums[i] > nums[i - 1]) {
+        ;[nums[i], nums[i - 1]] = [nums[i - 1], nums[i]]
+      }
     }
   }
-  return
 };
