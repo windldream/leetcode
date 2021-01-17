@@ -4,15 +4,11 @@
  * @return {number}
  */
 const lastRemaining = function (n, m) {
-  const arr = Array(n)
-    .fill(0)
-    .map((val, index) => index)
-  let start = 0
-  while (arr.length > 1) {
-    start = (start + m - 1) % arr.length
-    arr.splice(start, 1)
+  let ans = 0
+  for (let i = 2; i <= n; i++) {
+    ans = (ans + m) % i
   }
-  return arr[0]
+  return ans
 }
 
 lastRemaining(5, 3)
