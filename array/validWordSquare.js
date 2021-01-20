@@ -4,12 +4,15 @@
  */
 var validWordSquare = function (words) {
   const n = words.length
-  const m = words[0].length
+  let m = 0
+  for (let i = 0; i < n; i++) {
+    m = Math.max(m, words[i].length)
+  }
   const colWords = []
   for (let i = 0; i < m; i++) {
     let str = ''
     for (let j = 0; j < n; j++) {
-      str += words[j][i]
+      str += words[j][i] || ''
     }
     colWords[i] = str
   }
