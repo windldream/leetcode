@@ -3,20 +3,20 @@
  * @return {number[]}
  */
 var sortArray = function (nums) {
-  return selectionSort(nums)
+  return insertionSort(nums)
 
-  function selectionSort(arr) {
+  function insertionSort(arr) {
     const len = arr.length
-    for (let i = 0; i < len - 1; i++) {
-      let minIndex = i
-      for (let j = i + 1; j < len; j++) {
-        if (arr[j] < arr[minIndex]) {
-          minIndex = j
-        }
+    let preIndex = -1
+    let current = -1
+    for (let i = 1; i < len; i++) {
+      preIndex = i - 1
+      current = arr[i]
+      while (preIndex >= 0 && arr[preIndex] > current) {
+        arr[preIndex + 1] = arr[preIndex]
+        preIndex--
       }
-      const temp = arr[i]
-      arr[i] = arr[minIndex]
-      arr[minIndex] = temp
+      arr[preIndex + 1] = current
     }
     return arr
   }
