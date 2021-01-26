@@ -23,8 +23,7 @@ var minimumTeachings = function (n, languages, friendships) {
   for (const val of mostLanguage.values()) {
     most = Math.max(most, val)
   }
-  const nodes = notConnected.size
-  return nodes - most
+  return notConnected.size - most
 
   function hasCommon(langs, i, j) {
     const lang1 = langs[i - 1]
