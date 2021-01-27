@@ -9,15 +9,10 @@ var kthLargestValue = function (matrix, k) {
   const preSum = Array(m + 1)
     .fill(0)
     .map(() => Array(n + 1).fill(0))
-  for (let i = 0; i < m; i++) {
-    for (let j = 0; j < n; j++) {
-      preSum[i + 1][j + 1] = matrix[i][j] ^ preSum[i][j + 1] ^ preSum[i + 1][j] ^ preSum[i][j]
-    }
-  }
-
   const ans = []
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
+      preSum[i + 1][j + 1] = matrix[i][j] ^ preSum[i][j + 1] ^ preSum[i + 1][j] ^ preSum[i][j]
       ans.push(preSum[i + 1][j + 1])
     }
   }
