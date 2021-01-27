@@ -24,14 +24,14 @@ var minCharacters = function (a, b) {
 
   let ans = Infinity
   const totalLen = a.length + b.length
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 25; i++) {
     ans = Math.min(ans, totalLen - countera[i] - counterb[i])
     // 替换 a 中大于 i 索引对应的字母
-    if (i > 0) ans = Math.min(ans, a.length - prea[i] + preb[i])
+    ans = Math.min(ans, a.length - prea[i + 1] + preb[i + 1])
     // 替换 b 中小于 i 索引对应的字母
-    if (i < 26) ans = Math.min(ans, b.length - preb[i] + prea[i])
+    ans = Math.min(ans, b.length - preb[i + 1] + prea[i + 1])
   }
-  return ans
+  return Math.min(ans, totalLen - countera[25] - counterb[25])
 }
 
 minCharacters('a', 'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz')
