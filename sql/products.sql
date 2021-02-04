@@ -1,7 +1,4 @@
-select *
-from
-(
-  select product_id, new_price as price
+select product_id, new_price as price
   from Products
   where (product_id, change_date) in
   (
@@ -18,4 +15,3 @@ from
     from Products
     where change_date <= '2019-08-16'
   )
-) t
