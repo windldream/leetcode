@@ -8,7 +8,7 @@ class FastPriorityQueue {
     if (!(this instanceof FastPriorityQueue)) return new FastPriorityQueue(comparator)
     this.array = []
     this.size = 0
-    thisk.compare = comparator || defaultComparator
+    this.compare = comparator || defaultComparator
   }
 
   // 浅复制堆
@@ -84,6 +84,7 @@ class FastPriorityQueue {
         }
       }
       if (!this.compare(bestc, ai)) break
+      this.array[i] = bestc
       i = l
     }
     this.array[i] = ai
