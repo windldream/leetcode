@@ -4,18 +4,29 @@
  */
 var minSwapsCouples = function (row) {
   const n = row.length
-  let ans = 0
+  const uf = Array(n).fill(0)
   for (let i = 0; i < n; i += 2) {
-    if (row[i + 1] === (row[i] ^ 1)) continue
-    ans++
-    for (let j = i + 2; j < n; j++) {
-      if (row[j] === (row[i] ^ 1)) {
-        ;[row[i + 1], row[j]] = [row[j], row[i + 1]]
-        break
-      }
-    }
+    uf[i] = i
+    uf[i + 1] = i
+  }
+  for (let i = 0; i < n; i += 2) {
+    const v = find(row[i])
+    const u = find(row[i + 1])
+    uf[u] = v
+  }
+
+  let ans = n / 2
+  for (let i = 0; i < n; i++) {
+    if (uf[i] === i) ans--
   }
   return ans
+
+  function find(x) {
+    if (uf[x] !== x) {
+      uf[x] = find(uf[x])
+    }
+    return uf[x]
+  }
 }
 
-minSwapsCouples([0, 2, 1, 3])
+minSwapsCouples([3, 2, 0, 1])
