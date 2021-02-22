@@ -6,7 +6,7 @@ with recursive t(task_id, subtask_id) as (
   from t
   join tasks
   on t.task_id = tasks.task_id
-  where subtask_id < subtasks_count
+  where subtask_id < tasks.subtasks_count
 )
 select task_id, subtask_id
 from t
