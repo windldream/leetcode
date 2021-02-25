@@ -7,6 +7,7 @@ var canJump = function (nums) {
   for (let i = 0; i < nums.length; i++) {
     if (i > k) return false
     k = Math.max(k, i + nums[i])
+    if (k >= nums.length - 1) return true
   }
   return true
 }
