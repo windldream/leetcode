@@ -16,7 +16,8 @@ var minWindow = function (s, t) {
   while (r < s.length) {
     sMap.set(s[r], (sMap.get(s[r]) || 0) + 1)
     r++
-    while (l < r && check(sMap, tMap)) {
+    let flag = false
+    while (flag || (l < r && check(sMap, tMap))) {
       const str = s.substring(l, r)
       if (ans.length === 0) {
         ans = str
@@ -25,6 +26,7 @@ var minWindow = function (s, t) {
           ans = str
         }
       }
+      flag = !tMap.has(s[l])
       sMap.set(s[l], sMap.get(s[l]) - 1)
       l++
     }
