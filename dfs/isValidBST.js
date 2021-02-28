@@ -12,18 +12,17 @@
  */
 var isValidBST = function (root) {
   const stack = []
-  let ans = true
-  inorder(root, stack)
-  return ans
-
-  function inorder(root, stack) {
-    if (root === null) return
-    inorder(root.left, stack)
-    if (stack.length && stack[stack.length - 1] >= root.val) {
-      ans = false
-      return
+  const list = []
+  while (root || stack.length) {
+    if (root) {
+      stack.push(root)
+      root = root.left
+    } else {
+      root = stack.pop()
+      if (list.length && list[list.length - 1] >= root.val) return false
+      list.push(root.val)
+      root = root.right
     }
-    stack.push(root.val)
-    inorder(root.right, stack)
   }
+  return true
 }
