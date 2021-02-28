@@ -14,7 +14,7 @@ var closestCost = function (baseCosts, toppingCosts, target) {
   return ans
 
   function dfs(cost, index, costs, target) {
-    if (index === costs.length * 2) {
+    if (index === costs.length) {
       if (Math.abs(cost - target) < Math.abs(ans - target)) {
         ans = cost
       } else if (Math.abs(cost - target) === Math.abs(ans - target) && cost < ans) {
@@ -24,7 +24,8 @@ var closestCost = function (baseCosts, toppingCosts, target) {
     }
     if (cost - target >= 0 && Math.abs(cost - target) > Math.abs(ans - target)) return
     dfs(cost, index + 1, costs, target)
-    dfs(cost + costs[index % costs.length], index + 1, costs, target)
+    dfs(cost + costs[index], index + 1, costs, target)
+    dfs(cost + 2 * costs[index], index + 1, costs, target)
   }
 }
 
