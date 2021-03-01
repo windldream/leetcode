@@ -22,7 +22,7 @@ var buildTree = function (preorder, inorder) {
     const root = new TreeNode(rootVal)
     // 查找中序遍历的根节点
     const rootIdx = inorder.indexOf(rootVal)
-    // 中序遍历左节点的数量
+    // 中序遍历可以得到左节点的数量
     const leftCnt = rootIdx - ls
 
     root.left = build(preorder, inorder, ps + 1, ps + 1 + leftCnt, ls, rootIdx)
