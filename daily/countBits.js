@@ -19,14 +19,23 @@
 //   }
 // }
 
+// var countBits = function (num) {
+//   const ans = Array(num + 1).fill(0)
+//   for (let i = 0; i <= num; i++) {
+//     if (i & 1) {
+//       ans[i] = ans[i - 1] + 1
+//     } else {
+//       ans[i] = ans[i / 2]
+//     }
+//   }
+//   return ans
+// }
+
+// i & (i - 1) 消去最右边的1
 var countBits = function (num) {
   const ans = Array(num + 1).fill(0)
-  for (let i = 0; i <= num; i++) {
-    if (i & 1) {
-      ans[i] = ans[i - 1] + 1
-    } else {
-      ans[i] = ans[i / 2]
-    }
+  for (let i = 1; i <= num; i++) {
+    ans[i] = ans[i & (i - 1)] + 1
   }
   return ans
 }
