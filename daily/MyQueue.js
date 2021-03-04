@@ -1,16 +1,77 @@
-class Node {
-  constructor(val) {
-    this.val = val
-    this.next = null
-    this.prev = null
-  }
-}
+// class Node {
+//   constructor(val) {
+//     this.val = val
+//     this.next = null
+//     this.prev = null
+//   }
+// }
+// /**
+//  * Initialize your data structure here.
+//  */
+// var MyQueue = function () {
+//   this.head = null
+//   this.tail = null
+// }
+
+// /**
+//  * Push element x to the back of queue.
+//  * @param {number} x
+//  * @return {void}
+//  */
+// MyQueue.prototype.push = function (x) {
+//   const node = new Node(x)
+//   if (this.head === null) {
+//     this.head = node
+//     this.tail = node
+//   } else {
+//     const tail = this.tail
+//     tail.next = node
+//     node.prev = tail
+//     this.tail = node
+//   }
+// }
+
+// /**
+//  * Removes the element from in front of queue and returns that element.
+//  * @return {number}
+//  */
+// MyQueue.prototype.pop = function () {
+//   const head = this.head
+//   if (head === null) return null
+//   if (head.next === null) {
+//     this.head = null
+//     this.tail = null
+//     return head.val
+//   }
+//   head.next.prev = null
+//   this.head = head.next
+//   head.next = null
+//   return head.val
+// }
+
+// /**
+//  * Get the front element.
+//  * @return {number}
+//  */
+// MyQueue.prototype.peek = function () {
+//   return this.head.val
+// }
+
+// /**
+//  * Returns whether the queue is empty.
+//  * @return {boolean}
+//  */
+// MyQueue.prototype.empty = function () {
+//   return this.head === null
+// }
+
 /**
  * Initialize your data structure here.
  */
 var MyQueue = function () {
-  this.head = null
-  this.tail = null
+  this.stack1 = []
+  this.stack2 = []
+  this.front = null
 }
 
 /**
@@ -19,16 +80,10 @@ var MyQueue = function () {
  * @return {void}
  */
 MyQueue.prototype.push = function (x) {
-  const node = new Node(x)
-  if (this.head === null) {
-    this.head = node
-    this.tail = node
-  } else {
-    const tail = this.tail
-    tail.next = node
-    node.prev = tail
-    this.tail = node
+  if (this.stack1.length === 0) {
+    this.front = x
   }
+  this.stack1.push(x)
 }
 
 /**
@@ -36,17 +91,12 @@ MyQueue.prototype.push = function (x) {
  * @return {number}
  */
 MyQueue.prototype.pop = function () {
-  const head = this.head
-  if (head === null) return null
-  if (head.next === null) {
-    this.head = null
-    this.tail = null
-    return head.val
+  if (this.stack2.length === 0) {
+    while (this.stack1.length) {
+      this.stack2.push(this.stack1.pop())
+    }
   }
-  head.next.prev = null
-  this.head = head.next
-  head.next = null
-  return head.val
+  return this.stack2.pop()
 }
 
 /**
@@ -54,7 +104,10 @@ MyQueue.prototype.pop = function () {
  * @return {number}
  */
 MyQueue.prototype.peek = function () {
-  return this.head.val
+  if (this.stack2.length) {
+    return this.stack2[this.stack2.length - 1]
+  }
+  return this.front
 }
 
 /**
@@ -62,7 +115,7 @@ MyQueue.prototype.peek = function () {
  * @return {boolean}
  */
 MyQueue.prototype.empty = function () {
-  return this.head === null
+  return this.stack1.length === 0 && this.stack2.length === 0
 }
 
 /**
