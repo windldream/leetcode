@@ -37,5 +37,3 @@ var beautySum = function (s) {
     return c.charCodeAt() - 'a'.charCodeAt()
   }
 }
-
-// aabccb
