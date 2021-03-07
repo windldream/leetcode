@@ -14,7 +14,6 @@ var minElements = function (nums, limit, goal) {
   } else {
     diff = goal - sum
   }
-  if (diff < limit) return 1
   if (diff % limit === 0) return diff / limit
   return ~~(diff / limit) + 1
 }
