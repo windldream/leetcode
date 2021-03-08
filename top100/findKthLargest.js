@@ -128,17 +128,60 @@ class FastPriorityQueue {
  * @param {number} k
  * @return {number}
  */
+// var findKthLargest = function (nums, k) {
+//   const pq = new FastPriorityQueue()
+//   for (const num of nums) {
+//     if (pq.size < k) {
+//       pq.add(num)
+//     } else {
+//       if (pq.peek() < num) {
+//         pq.poll()
+//         pq.add(num)
+//       }
+//     }
+//   }
+//   return pq.peek()
+// }
+
 var findKthLargest = function (nums, k) {
-  const pq = new FastPriorityQueue()
-  for (const num of nums) {
-    if (pq.size < k) {
-      pq.add(num)
+  const len = nums.length
+  let l = 0
+  let r = len - 1
+  let target = len - k
+
+  while (true) {
+    const index = partition(nums, l, r)
+    if (index === target) {
+      return nums[index]
+    } else if (index < target) {
+      l = index + 1
     } else {
-      if (pq.peek() < num) {
-        pq.poll()
-        pq.add(num)
-      }
+      r = index - 1
     }
   }
-  return pq.peek()
+
+  function partition(nums, left, right) {
+    const pivot = nums[left]
+    let j = left
+    for (let i = left + 1; i <= right; i++) {
+      if (nums[i] < pivot) {
+        j++
+        swap(nums, j, i)
+      }
+    }
+    swap(nums, j, left)
+    return j
+  }
+
+  function swap(nums, l, r) {
+    const temp = nums[l]
+    nums[l] = nums[r]
+    nums[r] = temp
+  }
 }
+
+findKthLargest([3, 1, 2, 4, 2], 2)
+
+// [3, 1, 2, 4]
+
+// [3, 1, ]
