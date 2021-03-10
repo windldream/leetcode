@@ -127,17 +127,46 @@ class FastPriorityQueue {
  * @param {number[][]} intervals
  * @return {number}
  */
+// var minMeetingRooms = function (intervals) {
+//   intervals.sort((a, b) => a[0] - b[0])
+//   const pq = new FastPriorityQueue((a, b) => a[1] < b[1])
+//   let ans = 0
+//   for (const [start, end] of intervals) {
+//     if (!pq.isEmpty() && pq.peek()[1] <= start) {
+//       pq.poll()
+//     } else {
+//       ans++
+//     }
+//     pq.add([start, end])
+//   }
+//   return ans
+// }
+
 var minMeetingRooms = function (intervals) {
-  intervals.sort((a, b) => a[0] - b[0])
-  const pq = new FastPriorityQueue((a, b) => a[1] < b[1])
+  const starts = []
+  const ends = []
+  const n = intervals.length
+  for (const [s, e] of intervals) {
+    starts.push(s)
+    ends.push(e)
+  }
+  starts.sort((a, b) => a - b)
+  ends.sort((a, b) => a - b)
+
+  let i = 0
+  let j = 0
   let ans = 0
-  for (const [start, end] of intervals) {
-    if (!pq.isEmpty() && pq.peek()[1] <= start) {
-      pq.poll()
+  let activingRooms = 0
+  while (i < n && j < n) {
+    // 没有空闲房子
+    if (starts[i] < ends[j]) {
+      activingRooms++
+      i++
     } else {
-      ans++
+      activingRooms--
+      j++
     }
-    pq.add([start, end])
+    ans = Math.max(ans, activingRooms)
   }
   return ans
 }
