@@ -2,7 +2,7 @@
  * Initialize your data structure here.
  */
 var MyHashSet = function () {
-  this.set = []
+  this.bs = Array(40000).fill(0)
 }
 
 /**
@@ -10,8 +10,9 @@ var MyHashSet = function () {
  * @return {void}
  */
 MyHashSet.prototype.add = function (key) {
-  if (this.set.includes(key)) return
-  this.set.push(key)
+  const bucketIdx = ~~(key / 32)
+  const bitIdx = key % 32
+  this.set(bucketIdx, bitIdx, true)
 }
 
 /**
@@ -19,9 +20,9 @@ MyHashSet.prototype.add = function (key) {
  * @return {void}
  */
 MyHashSet.prototype.remove = function (key) {
-  if (!this.set.includes(key)) return
-  const index = this.set.indexOf(key)
-  this.set.splice(index, 1)
+  const bucketIdx = ~~(key / 32)
+  const bitIdx = key % 32
+  this.set(bucketIdx, bitIdx, false)
 }
 
 /**
@@ -30,7 +31,25 @@ MyHashSet.prototype.remove = function (key) {
  * @return {boolean}
  */
 MyHashSet.prototype.contains = function (key) {
-  return this.set.includes(key)
+  const bucketIdx = ~~(key / 32)
+  const bitIdx = key % 32
+  return this.get(bucketIdx, bitIdx)
+}
+
+MyHashSet.prototype.set = function (bucket, loc, val) {
+  if (val) {
+    const u = this.bs[bucket] | (1 << loc)
+    this.bs[bucket] = u
+  } else {
+    const u = this.bs[bucket] & ~(1 << loc)
+    this.bs[bucket] = u
+  }
+}
+
+MyHashSet.prototype.get = function (bucket, loc) {
+  // 判断 this.bs[bucket]的第loc位是否是 1
+  const u = (this.bs[bucket] >> loc) & 1
+  return u === 1
 }
 
 /**
