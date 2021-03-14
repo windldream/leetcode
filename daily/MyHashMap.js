@@ -1,8 +1,15 @@
+class Node {
+  constructor(key, val) {
+    this.key = key
+    this.val = val
+    this.next = null
+  }
+}
 /**
  * Initialize your data structure here.
  */
 var MyHashMap = function () {
-  this.hashMap = Object.create(null)
+  this.nodes = Array(10009).fill(null)
 }
 
 /**
@@ -12,7 +19,28 @@ var MyHashMap = function () {
  * @return {void}
  */
 MyHashMap.prototype.put = function (key, value) {
-  this.hashMap[key] = value
+  const idx = this.getIndex(key)
+  const head = this.nodes[idx]
+  let tmp = head
+  if (head) {
+    let prev = null
+    while (tmp) {
+      if (tmp.key === key) {
+        tmp.val = value
+        return
+      }
+      prev = tmp
+      tmp = tmp.next
+    }
+    tmp = prev
+  }
+
+  const node = new Node(key, value)
+  if (tmp) {
+    tmp.next = node
+  } else {
+    this.nodes[idx] = node
+  }
 }
 
 /**
@@ -21,8 +49,13 @@ MyHashMap.prototype.put = function (key, value) {
  * @return {number}
  */
 MyHashMap.prototype.get = function (key) {
-  if (!Object.prototype.hasOwnProperty.call(this.hashMap, key)) return -1
-  return this.hashMap[key]
+  const idx = this.getIndex(key)
+  let head = this.nodes[idx]
+  while (head) {
+    if (head.key === key) return head.val
+    head = head.next
+  }
+  return -1
 }
 
 /**
@@ -31,8 +64,28 @@ MyHashMap.prototype.get = function (key) {
  * @return {void}
  */
 MyHashMap.prototype.remove = function (key) {
-  if (!Object.prototype.hasOwnProperty.call(this.hashMap, key)) return
-  delete this.hashMap[key]
+  const idx = this.getIndex(key)
+  let head = this.nodes[idx]
+  if (head) {
+    let prev = null
+    while (head) {
+      if (head.key === key) {
+        if (prev) {
+          prev.next = head.next
+        } else {
+          this.nodes[idx] = head.next
+        }
+        return
+      }
+      prev = head
+      head = head.next
+    }
+  }
+}
+
+MyHashMap.prototype.getIndex = function (key) {
+  const hash = key ^ (key >>> 16)
+  return hash % this.nodes.length
 }
 
 /**
