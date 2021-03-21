@@ -5,19 +5,20 @@
 var setZeroes = function (matrix) {
   const m = matrix.length
   const n = matrix[0].length
-  const queue = []
+  const rowSet = new Set()
+  const colSet = new Set()
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
-      if (matrix[i][j] === 0) queue.push([i, j])
+      if (matrix[i][j] === 0) {
+        rowSet.add(i)
+        colSet.add(j)
+      }
     }
   }
 
-  for (const [r, c] of queue) {
-    for (let k = 0; k < m; k++) {
-      matrix[k][c] = 0
-    }
-    for (let k = 0; k < n; k++) {
-      matrix[r][k] = 0
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (rowSet.has(i) || colSet.has(j)) matrix[i][j] = 0
     }
   }
 }
