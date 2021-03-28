@@ -22,11 +22,9 @@ var maxNiceDivisors = function (primeFactors) {
     let ans = 1n
     while (n) {
       if (n % 2n) {
-        ans *= x
-        ans %= mod
+        ans = (ans * x) % mod
       }
-      x *= x
-      x %= mod
+      x = (x * x) % mod
       n = n >> 1n
     }
     return ans
