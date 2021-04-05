@@ -147,9 +147,5 @@ var magicTower = function (nums) {
     }
   }
 
-  for (const num of last) {
-    sum += num
-    if (sum < 0) return -1
-  }
   return count
 }
