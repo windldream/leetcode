@@ -36,8 +36,8 @@ var minAbsoluteSumDiff = function (nums1, nums2) {
         l = mid + 1
       }
     }
-    if (l < 0 || l >= arr.length) return Math.abs(arr[r] - num)
-    if (r < 0 || r >= arr.length) return Math.abs(arr[l] - num)
+    if (l >= arr.length) return Math.abs(arr[r] - num)
+    if (r < 0) return Math.abs(arr[l] - num)
     return Math.min(Math.abs(arr[l] - num), Math.abs(arr[r] - num))
   }
 }
