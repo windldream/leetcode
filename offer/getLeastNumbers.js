@@ -128,17 +128,55 @@ class FastPriorityQueue {
  * @param {number} k
  * @return {number[]}
  */
+// var getLeastNumbers = function (arr, k) {
+//   const pq = new FastPriorityQueue((a, b) => a > b)
+//   for (const num of arr) {
+//     if (pq.size < k) {
+//       pq.add(num)
+//     } else {
+//       if (pq.peek() > num) {
+//         pq.poll()
+//         pq.add(num)
+//       }
+//     }
+//   }
+//   return pq.array
+// }
+
 var getLeastNumbers = function (arr, k) {
-  const pq = new FastPriorityQueue((a, b) => a > b)
-  for (const num of arr) {
-    if (pq.size < k) {
-      pq.add(num)
-    } else {
-      if (pq.peek() > num) {
-        pq.poll()
-        pq.add(num)
-      }
-    }
+  if (k === 0) return []
+  if (k >= arr.length) return arr
+  partitionArray(arr, 0, arr.length - 1, k)
+  return arr.slice(0, k)
+
+  function partitionArray(arr, lo, hi, k) {
+    const m = partition(arr, lo, hi)
+    if (k === m) return
+    if (k < m) partitionArray(arr, lo, m - 1, k)
+    else partitionArray(arr, m + 1, hi, k)
   }
-  return pq.array
+
+  function partition(arr, lo, hi) {
+    let i = lo
+    let j = hi + 1
+    const base = arr[lo]
+    while (true) {
+      while (arr[++i] < base) {
+        if (i === hi) break
+      }
+      while (arr[--j] > base) {
+        if (j === lo) break
+      }
+      if (i >= j) break
+      swap(arr, i, j)
+    }
+    swap(arr, lo, j)
+    return j
+  }
+
+  function swap(arr, i, j) {
+    const tmp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = tmp
+  }
 }
