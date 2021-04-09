@@ -25,15 +25,32 @@
 //   }
 // }
 
+// var translateNum = function (num) {
+//   const str = num + ''
+//   let a = 1
+//   let b = 1
+//   for (let i = 2; i <= str.length; i++) {
+//     const n = str.substring(i - 2, i)
+//     const c = n >= 10 && n <= 25 ? a + b : a
+//     b = a
+//     a = c
+//   }
+//   return a
+// }
+
 var translateNum = function (num) {
-  const str = num + ''
   let a = 1
   let b = 1
-  for (let i = 2; i <= str.length; i++) {
-    const n = str.substring(i - 2, i)
+  let x
+  let y = num % 10
+  while (num) {
+    num = ~~(num / 10)
+    x = num % 10
+    const n = x * 10 + y
     const c = n >= 10 && n <= 25 ? a + b : a
     b = a
     a = c
+    y = x
   }
   return a
 }
