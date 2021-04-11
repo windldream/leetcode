@@ -12,12 +12,8 @@ var findTheWinner = function (n, k) {
     if (start === queue.length) {
       start = 0
     }
-    for (let i = 1; i < k; i++) {
-      start += 1
-      if (start === queue.length) {
-        start = start % queue.length
-      }
-    }
+    start += k - 1
+    start = start % queue.length
     queue.splice(start, 1)
   }
   return queue[0]
