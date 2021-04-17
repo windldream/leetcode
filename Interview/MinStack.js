@@ -1,16 +1,9 @@
-class Node {
-  constructor(val, min, next) {
-    this.val = val
-    this.min = min
-    this.next = next
-  }
-}
-
 /**
  * initialize your data structure here.
  */
 var MinStack = function () {
-  this.head = null
+  this.stack = []
+  this.minStack = [Infinity]
 }
 
 /**
@@ -18,10 +11,11 @@ var MinStack = function () {
  * @return {void}
  */
 MinStack.prototype.push = function (x) {
-  if (this.head === null) {
-    this.head = new Node(x, x, null)
+  this.stack.push(x)
+  if (this.minStack.length === 0) {
+    this.minStack.push(x)
   } else {
-    this.head = new Node(x, Math.min(x, this.head.min), this.head)
+    this.minStack.push(Math.min(this.minStack[this.minStack.length - 1], x))
   }
 }
 
@@ -29,21 +23,22 @@ MinStack.prototype.push = function (x) {
  * @return {void}
  */
 MinStack.prototype.pop = function () {
-  this.head = this.head.next
+  this.stack.pop()
+  this.minStack.pop()
 }
 
 /**
  * @return {number}
  */
 MinStack.prototype.top = function () {
-  return this.head.val
+  return this.stack[this.stack.length - 1]
 }
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function () {
-  return this.head.min
+  return this.minStack[this.minStack.length - 1]
 }
 
 /**
