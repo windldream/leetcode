@@ -10,7 +10,7 @@ var maxSumMinProduct = function (nums) {
     presum[i + 1] = presum[i] + BigInt(nums[i])
   }
 
-  const right = Array(n).fill(-1)
+  const right = Array(n).fill(n)
   let stack = []
   for (let i = 0; i < n; i++) {
     while (stack.length && nums[stack[stack.length - 1]] > nums[i]) {
@@ -30,8 +30,8 @@ var maxSumMinProduct = function (nums) {
 
   let max = 0n
   for (let i = 0; i < n; i++) {
-    const l = left[i] === -1 ? 0 : left[i] + 1
-    const r = right[i] === -1 ? n : right[i]
+    const l = left[i] + 1
+    const r = right[i]
     const sum = BigInt(nums[i]) * (presum[r] - presum[l])
     if (sum > max) max = sum
   }
