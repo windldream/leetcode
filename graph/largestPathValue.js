@@ -5,13 +5,12 @@
  */
 var largestPathValue = function (colors, edges) {
   const n = colors.length
-  const m = edges.length
-  const degree = Array(n).fill(0)
   const g = Array(n)
     .fill(0)
     .map(() => new Set())
+  const degree = Array(n).fill(0)
   for (const [u, v] of edges) {
-    degree[v] += 1
+    degree[v]++
     g[u].add(v)
   }
 
@@ -27,11 +26,11 @@ var largestPathValue = function (colors, edges) {
   while (queue.length) {
     found++
     const u = queue.shift()
-    dp[u][toIndex(colors[u])] += 1
+    dp[u][toIndex(colors[u])]++
     for (const v of g[u]) {
-      degree[v] -= 1
-      for (let c = 0; c < 26; c++) {
-        dp[v][c] = Math.max(dp[v][c], dp[u][c])
+      degree[v]--
+      for (let i = 0; i < 26; i++) {
+        dp[v][i] = Math.max(dp[v][i], dp[u][i])
       }
       if (degree[v] === 0) queue.push(v)
     }
