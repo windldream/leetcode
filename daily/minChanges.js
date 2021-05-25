@@ -26,6 +26,7 @@ var minChanges = function (nums, k) {
       if (dp[j] === Infinity) continue
       for (const [num, freq] of groups[i]) {
         const next = num ^ j
+        // 修改为num
         ndp[next] = Math.min(ndp[next], dp[j] + sizes[i] - freq)
       }
     }
