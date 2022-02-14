@@ -1,27 +1,27 @@
 /**
- * @param {number[][]} segments
- * @return {number[][]}
+ * @param {string} s
+ * @return {number}
  */
-var splitPainting = function (segments) {
-  const map = Object.create(null)
+var countPalindromicSubsequence = function (s) {
+  let count = 0
+  const baseCode = 'a'.charCodeAt()
 
-  for (const [start, end, color] of segments) {
-    if (map[start] === undefined) map[start] = 0
-    if (map[end] === undefined) map[end] = 0
+  // 枚举左右两侧字符
+  for (let i = 0; i < 26; i++) {
+    const middles = Array(26).fill(0)
+    const char = String.fromCharCode(i + baseCode)
+    const l = s.indexOf(char)
+    const r = s.lastIndexOf(char)
 
-    map[start] += color
-    map[end] -= color
+    // 枚举中间字符
+    for (let j = l + 1; j < r; j++) {
+      middles[s[j].charCodeAt() - baseCode] += 1
+    }
+
+    for (let j = 0; j < 26; j++) {
+      if (middles[j] > 0) count++
+    }
   }
 
-  const ans = []
-  let last = 0
-  let col = 0
-
-  for (const [num, color] of Object.entries(map)) {
-    if (col !== 0) ans.push([last, num, col])
-    last = num
-    col += color
-  }
-
-  return ans
+  return count
 }
