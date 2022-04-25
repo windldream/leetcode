@@ -1,5 +1,5 @@
 var RandomizedSet = function () {
-  this.nums = Array(200010).fill(0)
+  this.nums = []
   this.map = new Map()
   this.idx = -1
 }
